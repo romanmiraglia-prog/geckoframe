@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GeckoFrame — Cuadro autoadherente biomimético</title>
+<style>
+    :root {
+        --negro-carbon: #1a1a1a;
+        --verde-musgo: #6b8e4e;
+        --verde-pino: #2d4a2b;
+        --blanco-natural: #f5f1e8;
+        --gris-suave: #e8e4d8;
+        --texto: #2b2b2b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, sans-serif;
+        background: var(--blanco-natural);
+        color: var(--texto);
+        line-height: 1.6;
+    }
+
+    header {
+        background: linear-gradient(135deg, var(--verde-pino), var(--verde-musgo));
+        color: var(--blanco-natural);
+        padding: 80px 20px 60px;
+        text-align: center;
+    }
+
+    header h1 {
+        font-size: 4rem;
+        font-weight: 300;
+        letter-spacing: 8px;
+        margin-bottom: 10px;
+    }
+
+    header .tagline {
+        font-size: 1.2rem;
+        font-style: italic;
+        opacity: 0.9;
+        letter-spacing: 2px;
+    }
+
+    nav {
+        background: var(--negro-carbon);
+        padding: 15px;
+        text-align: center;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+
+    nav a {
+        color: var(--blanco-natural);
+        text-decoration: none;
+        margin: 0 18px;
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        transition: color 0.3s;
+    }
+
+    nav a:hover { color: var(--verde-musgo); }
+
+    main {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 40px 20px;
+    }
+
+    section {
+        background: white;
+        margin-bottom: 30px;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        border-left: 4px solid var(--verde-musgo);
+    }
+
+    section h2 {
+        color: var(--verde-pino);
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid var(--gris-suave);
+    }
+
+    section h3 {
+        color: var(--negro-carbon);
+        font-size: 1.2rem;
+        margin: 20px 0 10px;
+    }
+
+    p { margin-bottom: 15px; }
+
+    ul { padding-left: 25px; margin-bottom: 15px; }
+    li { margin-bottom: 6px; }
+
+    .palette {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+        margin: 20px 0;
+    }
+
+    .color-chip {
+        flex: 1;
+        min-width: 180px;
+        padding: 30px 20px;
+        border-radius: 6px;
+        text-align: center;
+        font-weight: 600;
+        letter-spacing: 1px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .chip-negro { background: var(--negro-carbon); color: white; }
+    .chip-musgo { background: var(--verde-musgo); color: white; }
+    .chip-pino { background: var(--verde-pino); color: white; }
+    .chip-blanco { background: var(--blanco-natural); color: var(--negro-carbon); border: 1px solid var(--gris-suave); }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 15px;
+        margin: 20px 0;
+    }
+
+    .feature-card {
+        background: var(--gris-suave);
+        padding: 20px;
+        border-radius: 6px;
+        text-align: center;
+        font-weight: 500;
+        color: var(--verde-pino);
+    }
+
+    .qa {
+        background: var(--gris-suave);
+        padding: 20px;
+        border-radius: 6px;
+        margin: 15px 0;
+        border-left: 3px solid var(--verde-musgo);
+    }
+
+    .qa strong { color: var(--verde-pino); display: block; margin-bottom: 8px; }
+
+    .label-mock {
+        background: var(--negro-carbon);
+        color: var(--blanco-natural);
+        padding: 40px;
+        border-radius: 8px;
+        text-align: center;
+        margin: 20px auto;
+        max-width: 400px;
+    }
+
+    .label-mock .brand {
+        font-size: 2.5rem;
+        letter-spacing: 6px;
+        font-weight: 300;
+        color: var(--verde-musgo);
+    }
+
+    .label-mock .sub {
+        font-size: 0.85rem;
+        letter-spacing: 3px;
+        margin-top: 8px;
+        opacity: 0.8;
+    }
+
+    .label-mock .line {
+        width: 60px;
+        height: 1px;
+        background: var(--verde-musgo);
+        margin: 15px auto;
+    }
+
+    .copy-block {
+        background: linear-gradient(135deg, var(--verde-pino), var(--verde-musgo));
+        color: var(--blanco-natural);
+        padding: 30px;
+        border-radius: 8px;
+        margin: 20px 0;
+    }
+
+    .copy-block .slogan {
+        font-size: 1.8rem;
+        font-style: italic;
+        text-align: center;
+        font-weight: 300;
+    }
+
+    .social-post {
+        background: white;
+        border: 1px solid var(--gris-suave);
+        padding: 20px;
+        border-radius: 8px;
+        margin: 15px 0;
+    }
+
+    .social-post .platform {
+        font-weight: 700;
+        color: var(--verde-pino);
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 2px;
+        margin-bottom: 10px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+    }
+
+    th, td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid var(--gris-suave);
+    }
+
+    th {
+        background: var(--verde-pino);
+        color: white;
+        font-weight: 500;
+        letter-spacing: 1px;
+    }
+
+    tr:hover { background: var(--gris-suave); }
+
+    footer {
+        background: var(--negro-carbon);
+        color: var(--blanco-natural);
+        text-align: center;
+        padding: 30px;
+        margin-top: 40px;
+        letter-spacing: 2px;
+        font-size: 0.85rem;
+    }
+
+    footer .brand-mini { color: var(--verde-musgo); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>GECKOFRAME</h1>
+    <p class="tagline">Decorá sin dejar huella</p>
+</header>
+
+<nav>
+    <a href="#producto">Producto</a>
+    <a href="#marca">Marca</a>
+    <a href="#diferenciacion">Diferenciación</a>
+    <a href="#especificaciones">Especificaciones</a>
+    <a href="#packaging">Packaging</a>
+    <a href="#marketing">Marketing</a>
+    <a href="#justificaciones">Justificaciones</a>
+</nav>
+
+<main>
+
+<section id="producto">
+    <h2>1. Descripción del producto</h2>
+    <p><strong>GeckoFrame</strong> es un cuadro decorativo autoadherente inspirado en el sistema de adhesión natural de los geckos: una estructura microscópica compuesta por millones de filamentos diminutos llamados <em>setae</em>, presentes en las patas del animal, que generan fuerzas de adhesión sin necesidad de pegamentos.</p>
+
+    <p>Aplicando esta tecnología biomimética a la decoración del hogar, GeckoFrame se adhiere a superficies lisas de forma firme y segura, pero permite ser retirado y reposicionado cuantas veces el usuario lo desee, sin dejar marcas, residuos ni dañar la pared.</p>
+
+    <p>Es la solución pensada para quienes quieren decorar con libertad: estudiantes en alquiler, parejas que se mudan seguido, profesionales que rediseñan sus espacios o cualquier persona que valore una estética cuidada sin las complicaciones de los métodos de fijación tradicionales.</p>
+
+    <h3>En una frase</h3>
+    <p style="font-style: italic; font-size: 1.1rem; color: var(--verde-pino);">No se trata solo de un cuadro. Es la libertad de decorar sin compromisos.</p>
+</section>
+
+<section id="marca">
+    <h2>2. Nombre y etiqueta de la marca</h2>
+
+    <h3>Nombre</h3>
+    <p><strong>GeckoFrame</strong> — combina la inspiración biológica del producto (<em>gecko</em>) con su funcionalidad principal (<em>frame</em>, cuadro). Un nombre breve, internacional y fácil de recordar.</p>
+
+    <h3>Etiqueta</h3>
+    <p>Diseño minimalista en negro carbón con tipografía sans-serif de trazo fino, espaciado amplio y un acento en verde musgo. Comunica modernidad, tecnología y naturaleza al mismo tiempo.</p>
+
+    <div class="label-mock">
+        <div class="brand">GECKOFRAME</div>
+        <div class="line"></div>
+        <div class="sub">DECORÁ SIN DEJAR HUELLA</div>
+    </div>
+
+    <h3>Paleta cromática de la marca</h3>
+    <div class="palette">
+        <div class="color-chip chip-negro">NEGRO CARBÓN</div>
+        <div class="color-chip chip-musgo">VERDE MUSGO</div>
+        <div class="color-chip chip-pino">VERDE PINO</div>
+        <div class="color-chip chip-blanco">BLANCO NATURAL</div>
+    </div>
+</section>
+
+<section id="diferenciacion">
+    <h2>3. Diferenciación frente a la competencia</h2>
+
+    <h3>Competencia directa</h3>
+    <ul>
+        <li>Cuadros tradicionales con clavos o tornillos</li>
+        <li>Cuadros con cinta adhesiva doble faz</li>
+        <li>Soportes removibles convencionales (tipo ganchos 3M)</li>
+    </ul>
+
+    <h3>¿Qué diferencia a GeckoFrame?</h3>
+    <table>
+        <tr>
+            <th>Característica</th>
+            <th>Competencia</th>
+            <th>GeckoFrame</th>
+        </tr>
+        <tr>
+            <td>Herramientas necesarias</td>
+            <td>Martillo, taladro</td>
+            <td>Ninguna</td>
+        </tr>
+        <tr>
+            <td>Perforaciones</td>
+            <td>Sí</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>Reutilizable</td>
+            <td>No</td>
+            <td>Sí, múltiples veces</td>
+        </tr>
+        <tr>
+            <td>Residuos al retirar</td>
+            <td>Pegamento, agujeros</td>
+            <td>Cero</td>
+        </tr>
+        <tr>
+            <td>Reposicionable</td>
+            <td>No</td>
+            <td>Sí, sin perder adherencia</td>
+        </tr>
+    </table>
+
+    <p style="margin-top: 20px;"><strong>La diferencia central:</strong> GeckoFrame no vende un cuadro. Vende la libertad de decorar sin dañar paredes, sin compromisos y sin arrepentimientos.</p>
+</section>
+
+<section id="especificaciones">
+    <h2>4. Especificaciones técnicas</h2>
+
+    <h3>Materiales</h3>
+    <ul>
+        <li><strong>Estructura:</strong> madera sintética ultraliviana</li>
+        <li><strong>Superficie:</strong> laminado moderno de acabado mate</li>
+        <li><strong>Base:</strong> tecnología autoadherente biomimética inspirada en los geckos</li>
+    </ul>
+
+    <h3>Peso aproximado</h3>
+    <p>Entre 500 g y 3 kg según el tamaño del cuadro.</p>
+
+    <h3>Superficies compatibles</h3>
+    <ul>
+        <li>Paredes lisas (pintura mate o satinada)</li>
+        <li>Madera lijada</li>
+        <li>Vidrio</li>
+        <li>Cerámica lisa</li>
+    </ul>
+
+    <h3>Características principales</h3>
+    <div class="features-grid">
+        <div class="feature-card">Fácil instalación</div>
+        <div class="feature-card">Reutilizable</div>
+        <div class="feature-card">Reposicionable</div>
+        <div class="feature-card">Sin herramientas</div>
+        <div class="feature-card">Sin perforaciones</div>
+        <div class="feature-card">No deja residuos</div>
+        <div class="feature-card">Diseño minimalista</div>
+        <div class="feature-card">Biomimético</div>
+    </div>
+</section>
+
+<section id="packaging">
+    <h2>5. Packaging</h2>
+
+    <h3>Concepto</h3>
+    <p>El packaging refleja los valores centrales de la marca: sostenibilidad, minimalismo y tecnología. Se descarta el plástico innecesario en favor de materiales reciclables que comunican coherencia ambiental.</p>
+
+    <h3>Estructura del envase</h3>
+    <ul>
+        <li><strong>Caja exterior:</strong> cartón corrugado reciclado de tono kraft natural, impresión en una sola tinta (negro carbón) para minimizar consumo de químicos.</li>
+        <li><strong>Tapa frontal:</strong> logotipo <em>GeckoFrame</em> centrado con acento verde musgo y el claim "Decorá sin dejar huella".</li>
+        <li><strong>Interior:</strong> separadores de cartón reciclado moldeado que protegen el cuadro sin usar telgopor ni espuma.</li>
+        <li><strong>Lámina protectora:</strong> film de papel encerado biodegradable que cubre la base autoadherente.</li>
+    </ul>
+
+    <h3>Información impresa</h3>
+    <ul>
+        <li>Instrucciones de instalación ilustradas en 3 pasos</li>
+        <li>Listado de superficies compatibles e incompatibles</li>
+        <li>Indicador de peso y dimensiones</li>
+        <li>Sello "100% reutilizable · 0% residuos"</li>
+        <li>QR que enlaza al video tutorial y la garantía</li>
+    </ul>
+
+    <h3>Experiencia de unboxing</h3>
+    <p>Al abrir la caja, el usuario encuentra primero una tarjeta de bienvenida con el mensaje: <em>"Bienvenido al mundo de la decoración sin huella"</em>. Debajo, el cuadro protegido y la lámina del adhesivo. Sin plásticos, sin excesos, sin culpa.</p>
+</section>
+
+<section id="marketing">
+    <h2>6. Copy de marketing</h2>
+
+    <h3>Slogan principal</h3>
+    <div class="copy-block">
+        <p class="slogan">"Decorá sin dejar huella."</p>
+    </div>
+
+    <h3>Slogans alternativos</h3>
+    <ul>
+        <li><em>"Inspirado en la naturaleza. Diseñado para tu pared."</em></li>
+        <li><em>"Cambiá de idea. Cambiá de pared. Sin marcas."</em></li>
+        <li><em>"Adherencia perfecta. Cero compromiso."</em></li>
+        <li><em>"La pared queda intacta. La decoración, en tus manos."</em></li>
+    </ul>
+
+    <h3>Propuesta de valor (elevator pitch)</h3>
+    <p style="background: var(--gris-suave); padding: 20px; border-radius: 6px; font-style: italic;">GeckoFrame es el primer cuadro autoadherente inspirado en la biomimética de los geckos. Se coloca sin herramientas, se retira sin marcas y se reposiciona las veces que quieras. Decorar nunca fue tan libre.</p>
+
+    <h3>Contenido para redes sociales</h3>
+
+    <div class="social-post">
+        <div class="platform">Instagram · Post de lanzamiento</div>
+        <p><strong>Tu pared no debería pagar el precio de tu creatividad.</strong></p>
+        <p>Llegó GeckoFrame: el cuadro que se adhiere como un gecko y se va sin dejar rastro. Cambiá de lugar, cambiá de idea, cambiá de casa. La pared queda como nueva.</p>
+        <p>#GeckoFrame #SinHuella #DecoraciónBiomimética #Mudate</p>
+    </div>
+
+    <div class="social-post">
+        <div class="platform">TikTok · Hook de video</div>
+        <p>"Le saqué el cuadro a la pared después de 6 meses. Mirá cómo quedó."</p>
+        <p><em>(Cero marcas. Cero residuos. Cero excusas para no decorar.)</em></p>
+    </div>
+
+    <div class="social-post">
+        <div class="platform">Anuncio Meta Ads · Texto principal</div>
+        <p><strong>¿Alquilás? ¿Te mudás seguido? ¿No querés perforar la pared?</strong></p>
+        <p>GeckoFrame es un cuadro decorativo que se adhiere con tecnología inspirada en los geckos. Sin clavos. Sin pegamento. Sin marcas al retirarlo. Lo movés cuantas veces quieras.</p>
+        <p><strong>CTA:</strong> Conocé GeckoFrame →</p>
+    </div>
+
+    <div class="social-post">
+        <div class="platform">Email marketing · Asunto</div>
+        <p><em>"Esto va a cambiar tu forma de decorar (literalmente)."</em></p>
+    </div>
+
+    <h3>Tono de comunicación</h3>
+    <ul>
+        <li><strong>Cercano</strong> pero no informal</li>
+        <li><strong>Aspiracional</strong> sin ser elitista</li>
+        <li><strong>Técnico</strong> cuando hay que explicar la biomimética, simple en el resto</li>
+        <li><strong>Consciente</strong> del medioambiente sin caer en clichés</li>
+    </ul>
+</section>
+
+<section id="justificaciones">
+    <h2>7. Justificación de decisiones</h2>
+
+    <div class="qa">
+        <strong>¿Por qué un diseño minimalista?</strong>
+        El producto está pensado para espacios modernos y busca integrarse visualmente sin competir con la imagen del cuadro. El marco es el marco, no el protagonista.
+    </div>
+
+    <div class="qa">
+        <strong>¿Por qué una paleta de colores naturales?</strong>
+        Los tonos negro carbón, blanco natural y verdes transmiten modernidad, naturaleza, tecnología biomimética y limpieza visual al mismo tiempo. Refuerzan el origen biológico del producto sin caer en lo literal.
+    </div>
+
+    <div class="qa">
+        <strong>¿Por qué tecnología biomimética?</strong>
+        Permite diferenciar el producto de los cuadros convencionales con un argumento técnico sólido y verificable: un sistema reutilizable, menos invasivo y respaldado por la ingeniería que copia procesos naturales.
+    </div>
+
+    <div class="qa">
+        <strong>¿Por qué hacerlo removible y reposicionable?</strong>
+        Porque el mercado real lo necesita: muchos usuarios alquilan, redecoran con frecuencia o simplemente no quieren perforar paredes. Es la justificación comercial más fuerte del producto.
+    </div>
+
+    <div class="qa">
+        <strong>¿Por qué madera sintética y no madera natural?</strong>
+        Suena moderna, es ultraliviana (clave para el sistema de adhesión) y resulta más coherente con la propuesta tecnológica del producto. La madera natural sería pesada y rompería la narrativa.
+    </div>
+
+    <div class="qa">
+        <strong>¿Por qué no incluir paredes rugosas en superficies compatibles?</strong>
+        Porque obligaría a justificar excepciones técnicas y debilitaría la promesa central de adherencia perfecta. Mejor prometer menos y cumplir siempre.
+    </div>
+
+    <div class="qa">
+        <strong>¿Por qué packaging sostenible?</strong>
+        Si la propuesta de valor es "no dejar huella en tu pared", sería incoherente dejar una huella ambiental en el planeta. La sostenibilidad refuerza la narrativa de marca.
+    </div>
+</section>
+
+</main>
+
+<footer>
+    <p><span class="brand-mini">GECKOFRAME</span> · Decorá sin dejar huella · 2026</p>
+</footer>
+
+</body>
+</html>
