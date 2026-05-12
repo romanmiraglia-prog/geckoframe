@@ -3,510 +3,1203 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GeckoFrame — Cuadro autoadherente biomimético</title>
+<title>GeckoFrame — Decorá sin dejar huella</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700;900&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
     :root {
-        --negro-carbon: #1a1a1a;
-        --verde-musgo: #6b8e4e;
+        --negro: #0a0a0a;
+        --negro-suave: #161616;
+        --negro-card: #1c1c1c;
+        --verde-musgo: #8aab5a;
+        --verde-acento: #b8d97a;
         --verde-pino: #2d4a2b;
-        --blanco-natural: #f5f1e8;
-        --gris-suave: #e8e4d8;
-        --texto: #2b2b2b;
+        --blanco: #f5f1e8;
+        --gris: #6a6a6a;
+        --gris-claro: #aaa;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
 
     body {
-        font-family: 'Segoe UI', Tahoma, sans-serif;
-        background: var(--blanco-natural);
-        color: var(--texto);
-        line-height: 1.6;
+        font-family: 'Inter', sans-serif;
+        background: var(--negro);
+        color: var(--blanco);
+        overflow-x: hidden;
+        line-height: 1.5;
     }
 
-    header {
-        background: linear-gradient(135deg, var(--verde-pino), var(--verde-musgo));
-        color: var(--blanco-natural);
-        padding: 80px 20px 60px;
-        text-align: center;
+    nav.main-nav {
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        z-index: 1000;
+        padding: 25px 60px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: rgba(10, 10, 10, 0);
+        transition: background 0.4s ease, padding 0.4s ease;
+        backdrop-filter: blur(0px);
     }
 
-    header h1 {
-        font-size: 4rem;
-        font-weight: 300;
-        letter-spacing: 8px;
-        margin-bottom: 10px;
+    nav.main-nav.scrolled {
+        background: rgba(10, 10, 10, 0.92);
+        padding: 15px 60px;
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(255,255,255,0.05);
     }
 
-    header .tagline {
-        font-size: 1.2rem;
-        font-style: italic;
-        opacity: 0.9;
-        letter-spacing: 2px;
+    .nav-logo {
+        font-weight: 900;
+        font-size: 1.4rem;
+        letter-spacing: 4px;
+        color: var(--blanco);
     }
 
-    nav {
-        background: var(--negro-carbon);
-        padding: 15px;
-        text-align: center;
-        position: sticky;
-        top: 0;
-        z-index: 100;
+    .nav-logo span { color: var(--verde-acento); }
+
+    .nav-links {
+        display: flex;
+        gap: 40px;
+        list-style: none;
     }
 
-    nav a {
-        color: var(--blanco-natural);
+    .nav-links a {
+        color: var(--blanco);
         text-decoration: none;
-        margin: 0 18px;
-        font-size: 0.9rem;
-        letter-spacing: 1px;
+        font-size: 0.78rem;
+        letter-spacing: 2px;
         text-transform: uppercase;
+        font-weight: 500;
+        position: relative;
+        padding: 5px 0;
         transition: color 0.3s;
     }
 
-    nav a:hover { color: var(--verde-musgo); }
-
-    main {
-        max-width: 1100px;
-        margin: 0 auto;
-        padding: 40px 20px;
+    .nav-links a::after {
+        content: '';
+        position: absolute;
+        bottom: 0; left: 0;
+        width: 0; height: 1px;
+        background: var(--verde-acento);
+        transition: width 0.3s ease;
     }
 
-    section {
-        background: white;
-        margin-bottom: 30px;
-        padding: 40px;
-        border-radius: 8px;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-        border-left: 4px solid var(--verde-musgo);
+    .nav-links a:hover { color: var(--verde-acento); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-cta {
+        background: var(--verde-acento);
+        color: var(--negro);
+        padding: 10px 22px;
+        border: none;
+        border-radius: 2px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 0.3s;
     }
 
-    section h2 {
-        color: var(--verde-pino);
-        font-size: 1.8rem;
-        margin-bottom: 20px;
-        padding-bottom: 10px;
-        border-bottom: 2px solid var(--gris-suave);
+    .nav-cta:hover {
+        background: var(--blanco);
+        transform: translateY(-2px);
     }
 
-    section h3 {
-        color: var(--negro-carbon);
-        font-size: 1.2rem;
-        margin: 20px 0 10px;
-    }
-
-    p { margin-bottom: 15px; }
-
-    ul { padding-left: 25px; margin-bottom: 15px; }
-    li { margin-bottom: 6px; }
-
-    .palette {
+    .hero {
+        height: 100vh;
+        min-height: 700px;
+        position: relative;
         display: flex;
-        gap: 15px;
-        flex-wrap: wrap;
-        margin: 20px 0;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        background: var(--negro);
     }
 
-    .color-chip {
-        flex: 1;
-        min-width: 180px;
-        padding: 30px 20px;
-        border-radius: 6px;
+    .hero-bg {
+        position: absolute;
+        inset: 0;
+        background:
+            radial-gradient(ellipse at 70% 50%, rgba(138, 171, 90, 0.18) 0%, transparent 60%),
+            radial-gradient(ellipse at 20% 80%, rgba(45, 74, 43, 0.4) 0%, transparent 50%),
+            linear-gradient(135deg, #0a0a0a 0%, #1a1f15 100%);
+    }
+
+    .hero-bg::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image:
+            linear-gradient(rgba(138, 171, 90, 0.04) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(138, 171, 90, 0.04) 1px, transparent 1px);
+        background-size: 60px 60px;
+        animation: gridMove 20s linear infinite;
+    }
+
+    @keyframes gridMove {
+        from { background-position: 0 0; }
+        to { background-position: 60px 60px; }
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
         text-align: center;
-        font-weight: 600;
-        letter-spacing: 1px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        padding: 0 30px;
+        max-width: 1200px;
+        animation: fadeUp 1.2s ease-out;
     }
 
-    .chip-negro { background: var(--negro-carbon); color: white; }
-    .chip-musgo { background: var(--verde-musgo); color: white; }
-    .chip-pino { background: var(--verde-pino); color: white; }
-    .chip-blanco { background: var(--blanco-natural); color: var(--negro-carbon); border: 1px solid var(--gris-suave); }
-
-    .features-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 15px;
-        margin: 20px 0;
+    @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(40px); }
+        to { opacity: 1; transform: translateY(0); }
     }
 
-    .feature-card {
-        background: var(--gris-suave);
-        padding: 20px;
-        border-radius: 6px;
-        text-align: center;
-        font-weight: 500;
-        color: var(--verde-pino);
-    }
-
-    .qa {
-        background: var(--gris-suave);
-        padding: 20px;
-        border-radius: 6px;
-        margin: 15px 0;
-        border-left: 3px solid var(--verde-musgo);
-    }
-
-    .qa strong { color: var(--verde-pino); display: block; margin-bottom: 8px; }
-
-    .label-mock {
-        background: var(--negro-carbon);
-        color: var(--blanco-natural);
-        padding: 40px;
-        border-radius: 8px;
-        text-align: center;
-        margin: 20px auto;
-        max-width: 400px;
-    }
-
-    .label-mock .brand {
-        font-size: 2.5rem;
+    .hero-eyebrow {
+        font-size: 0.8rem;
         letter-spacing: 6px;
-        font-weight: 300;
-        color: var(--verde-musgo);
+        color: var(--verde-acento);
+        text-transform: uppercase;
+        margin-bottom: 25px;
+        font-weight: 500;
     }
 
-    .label-mock .sub {
+    .hero-title {
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(3rem, 9vw, 8rem);
+        font-weight: 900;
+        line-height: 0.95;
+        letter-spacing: -2px;
+        margin-bottom: 30px;
+        background: linear-gradient(180deg, #fff 0%, #999 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .hero-title em {
+        font-style: italic;
+        color: var(--verde-acento);
+        -webkit-text-fill-color: var(--verde-acento);
+    }
+
+    .hero-subtitle {
+        font-size: clamp(1rem, 1.6vw, 1.3rem);
+        color: var(--gris-claro);
+        max-width: 600px;
+        margin: 0 auto 50px;
+        font-weight: 300;
+        line-height: 1.6;
+    }
+
+    .hero-cta-group {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .btn-primary, .btn-secondary {
+        padding: 18px 38px;
         font-size: 0.85rem;
         letter-spacing: 3px;
-        margin-top: 8px;
-        opacity: 0.8;
+        text-transform: uppercase;
+        font-weight: 700;
+        cursor: pointer;
+        border: none;
+        border-radius: 2px;
+        transition: all 0.3s;
+        text-decoration: none;
+        display: inline-block;
     }
 
-    .label-mock .line {
-        width: 60px;
-        height: 1px;
-        background: var(--verde-musgo);
-        margin: 15px auto;
+    .btn-primary {
+        background: var(--verde-acento);
+        color: var(--negro);
     }
 
-    .copy-block {
-        background: linear-gradient(135deg, var(--verde-pino), var(--verde-musgo));
-        color: var(--blanco-natural);
-        padding: 30px;
-        border-radius: 8px;
-        margin: 20px 0;
+    .btn-primary:hover {
+        background: var(--blanco);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(138, 171, 90, 0.3);
     }
 
-    .copy-block .slogan {
-        font-size: 1.8rem;
+    .btn-secondary {
+        background: transparent;
+        color: var(--blanco);
+        border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .btn-secondary:hover {
+        border-color: var(--verde-acento);
+        color: var(--verde-acento);
+    }
+
+    .scroll-indicator {
+        position: absolute;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: var(--gris-claro);
+        font-size: 0.7rem;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        animation: pulse 2s infinite;
+    }
+
+    .scroll-indicator::after {
+        content: '';
+        display: block;
+        width: 1px;
+        height: 40px;
+        background: var(--verde-acento);
+        margin: 12px auto 0;
+    }
+
+    @keyframes pulse {
+        0%, 100% { opacity: 0.6; }
+        50% { opacity: 1; }
+    }
+
+    section.full {
+        min-height: 100vh;
+        padding: 120px 60px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .section-eyebrow {
+        font-size: 0.75rem;
+        letter-spacing: 5px;
+        color: var(--verde-acento);
+        text-transform: uppercase;
+        margin-bottom: 20px;
+        font-weight: 600;
+    }
+
+    .section-title {
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(2.5rem, 5.5vw, 5rem);
+        font-weight: 900;
+        line-height: 1;
+        letter-spacing: -1.5px;
+        margin-bottom: 30px;
+    }
+
+    .section-title em {
         font-style: italic;
+        color: var(--verde-acento);
+    }
+
+    .story {
+        background: var(--negro);
         text-align: center;
+    }
+
+    .story-content {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .story p {
+        font-size: clamp(1.1rem, 1.5vw, 1.4rem);
+        color: var(--gris-claro);
+        font-weight: 300;
+        margin-bottom: 25px;
+        line-height: 1.7;
+    }
+
+    .story p:first-of-type::first-letter {
+        font-family: 'Playfair Display', serif;
+        font-size: 4rem;
+        font-weight: 900;
+        color: var(--verde-acento);
+        float: left;
+        line-height: 1;
+        padding: 8px 18px 0 0;
+    }
+
+    .tech {
+        background: var(--negro-suave);
+        padding: 120px 60px;
+    }
+
+    .split-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        max-width: 1400px;
+        margin: 0 auto;
+        align-items: center;
+    }
+
+    .split-visual {
+        aspect-ratio: 1;
+        background:
+            radial-gradient(circle at center, var(--verde-musgo) 0%, transparent 70%),
+            var(--negro-card);
+        border-radius: 4px;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .split-visual::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image:
+            radial-gradient(circle at 25% 25%, var(--verde-acento) 1px, transparent 2px),
+            radial-gradient(circle at 75% 75%, var(--verde-acento) 1px, transparent 2px),
+            radial-gradient(circle at 50% 50%, var(--verde-acento) 1px, transparent 2px);
+        background-size: 30px 30px, 40px 40px, 50px 50px;
+        opacity: 0.3;
+    }
+
+    .gecko-icon {
+        color: var(--verde-acento);
+        opacity: 0.9;
+        position: relative;
+        z-index: 1;
+        filter: drop-shadow(0 0 30px rgba(138, 171, 90, 0.5));
+        width: 240px;
+        height: 240px;
+    }
+
+    .split-text h2 { margin-bottom: 40px; }
+
+    .split-text p {
+        font-size: 1.1rem;
+        color: var(--gris-claro);
+        font-weight: 300;
+        margin-bottom: 20px;
+        line-height: 1.7;
+    }
+
+    .comparison {
+        background: var(--negro);
+        padding: 120px 60px;
+    }
+
+    .comparison-header {
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto 80px;
+    }
+
+    .comparison-table {
+        max-width: 1100px;
+        margin: 0 auto;
+        border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .comparison-row {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+        padding: 28px 30px;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+        align-items: center;
+        transition: background 0.3s;
+    }
+
+    .comparison-row:hover { background: rgba(138, 171, 90, 0.04); }
+
+    .comparison-row.header {
+        background: transparent;
+        border-bottom: 2px solid var(--verde-acento);
+    }
+
+    .comparison-row.header div {
+        font-size: 0.75rem;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: var(--gris-claro);
+    }
+
+    .comparison-row.header div:last-child { color: var(--verde-acento); }
+
+    .comparison-row .feature {
+        font-size: 1rem;
+        color: var(--blanco);
+        font-weight: 500;
+    }
+
+    .comparison-row .competition {
+        font-size: 0.9rem;
+        color: var(--gris);
+    }
+
+    .comparison-row .gecko {
+        font-size: 0.95rem;
+        color: var(--verde-acento);
+        font-weight: 600;
+    }
+
+    .specs {
+        background: var(--negro-suave);
+        padding: 120px 60px;
+    }
+
+    .specs-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 25px;
+        max-width: 1400px;
+        margin: 60px auto 0;
+    }
+
+    .spec-card {
+        background: var(--negro-card);
+        padding: 40px 30px;
+        border-radius: 4px;
+        border: 1px solid rgba(255,255,255,0.05);
+        transition: all 0.4s;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .spec-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0;
+        width: 0; height: 2px;
+        background: var(--verde-acento);
+        transition: width 0.4s;
+    }
+
+    .spec-card:hover {
+        transform: translateY(-8px);
+        border-color: rgba(138, 171, 90, 0.3);
+    }
+
+    .spec-card:hover::before { width: 100%; }
+
+    .spec-card .num {
+        font-family: 'Playfair Display', serif;
+        font-size: 3rem;
+        font-weight: 900;
+        color: var(--verde-acento);
+        line-height: 1;
+        margin-bottom: 15px;
+    }
+
+    .spec-card h3 {
+        font-size: 1.1rem;
+        margin-bottom: 12px;
+        font-weight: 600;
+    }
+
+    .spec-card p {
+        font-size: 0.9rem;
+        color: var(--gris-claro);
         font-weight: 300;
     }
 
-    .social-post {
-        background: white;
-        border: 1px solid var(--gris-suave);
-        padding: 20px;
-        border-radius: 8px;
-        margin: 15px 0;
+    .palette-section {
+        background: var(--negro);
+        padding: 120px 60px;
     }
 
-    .social-post .platform {
-        font-weight: 700;
-        color: var(--verde-pino);
-        text-transform: uppercase;
-        font-size: 0.85rem;
+    .palette-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0;
+        max-width: 1400px;
+        margin: 60px auto 0;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+
+    .palette-block {
+        aspect-ratio: 3/4;
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        transition: transform 0.4s;
+        cursor: default;
+    }
+
+    .palette-block:hover { transform: scale(1.05); z-index: 2; }
+
+    .palette-block .hex {
+        font-size: 0.75rem;
         letter-spacing: 2px;
+        opacity: 0.7;
+        margin-bottom: 5px;
+    }
+
+    .palette-block .name {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.4rem;
+        font-weight: 700;
+    }
+
+    .pal-negro { background: #0a0a0a; color: var(--verde-acento); border: 1px solid rgba(255,255,255,0.1); }
+    .pal-musgo { background: #8aab5a; color: #0a0a0a; }
+    .pal-pino { background: #2d4a2b; color: var(--verde-acento); }
+    .pal-blanco { background: #f5f1e8; color: #0a0a0a; }
+
+    .packaging {
+        background: var(--negro-suave);
+        padding: 120px 60px;
+    }
+
+    .packaging-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        max-width: 1400px;
+        margin: 60px auto 0;
+        align-items: start;
+    }
+
+    .package-visual {
+        aspect-ratio: 4/5;
+        background:
+            linear-gradient(135deg, #3a2f1f 0%, #2a1f0f 100%);
+        border-radius: 4px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+    }
+
+    .package-visual::before {
+        content: '';
+        position: absolute;
+        inset: 20px;
+        border: 1px solid rgba(138, 171, 90, 0.2);
+    }
+
+    .package-label {
+        text-align: center;
+        z-index: 2;
+    }
+
+    .package-label .brand-pkg {
+        font-family: 'Playfair Display', serif;
+        font-size: 3rem;
+        font-weight: 900;
+        color: var(--verde-acento);
+        letter-spacing: 4px;
         margin-bottom: 10px;
     }
 
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 20px 0;
+    .package-label .claim-pkg {
+        font-size: 0.7rem;
+        letter-spacing: 5px;
+        color: var(--blanco);
+        opacity: 0.7;
+        text-transform: uppercase;
     }
 
-    th, td {
-        padding: 12px;
-        text-align: left;
-        border-bottom: 1px solid var(--gris-suave);
+    .package-label .line-pkg {
+        width: 50px;
+        height: 1px;
+        background: var(--verde-acento);
+        margin: 15px auto;
     }
 
-    th {
-        background: var(--verde-pino);
-        color: white;
+    .package-features {
+        list-style: none;
+        padding: 0;
+        margin-top: 30px;
+    }
+
+    .package-features li {
+        padding: 18px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .package-features li::before {
+        content: '';
+        flex-shrink: 0;
+        width: 6px;
+        height: 6px;
+        background: var(--verde-acento);
+        border-radius: 50%;
+        margin-top: 9px;
+    }
+
+    .package-features strong {
+        color: var(--blanco);
+        display: block;
+        margin-bottom: 4px;
+        font-weight: 600;
+    }
+
+    .package-features span {
+        color: var(--gris-claro);
+        font-weight: 300;
+        font-size: 0.95rem;
+    }
+
+    .manifesto {
+        background:
+            radial-gradient(ellipse at center, rgba(138, 171, 90, 0.1) 0%, transparent 70%),
+            var(--negro);
+        text-align: center;
+        padding: 160px 60px;
+    }
+
+    .manifesto-quote {
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(2.5rem, 6vw, 5rem);
+        font-weight: 900;
+        line-height: 1.1;
+        letter-spacing: -1px;
+        max-width: 1100px;
+        margin: 0 auto 60px;
+    }
+
+    .manifesto-quote em {
+        font-style: italic;
+        color: var(--verde-acento);
+    }
+
+    .manifesto-sub {
+        font-size: 1.1rem;
+        color: var(--gris-claro);
+        font-weight: 300;
+        letter-spacing: 1px;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .campaign {
+        background: var(--negro-suave);
+        padding: 120px 60px;
+    }
+
+    .campaign-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 30px;
+        max-width: 1400px;
+        margin: 60px auto 0;
+    }
+
+    .campaign-card {
+        background: var(--negro-card);
+        padding: 40px;
+        border-radius: 4px;
+        border-left: 3px solid var(--verde-acento);
+        transition: transform 0.4s;
+    }
+
+    .campaign-card:hover { transform: translateY(-8px); }
+
+    .campaign-card .platform-tag {
+        font-size: 0.7rem;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--verde-acento);
+        margin-bottom: 20px;
+        font-weight: 700;
+    }
+
+    .campaign-card .copy-text {
+        font-size: 1.05rem;
+        color: var(--blanco);
         font-weight: 500;
+        margin-bottom: 12px;
+        line-height: 1.5;
+    }
+
+    .campaign-card .copy-desc {
+        font-size: 0.9rem;
+        color: var(--gris-claro);
+        font-weight: 300;
+        line-height: 1.6;
+    }
+
+    .campaign-card .hashtags {
+        margin-top: 15px;
+        font-size: 0.85rem;
+        color: var(--verde-acento);
+        font-weight: 500;
+    }
+
+    .why {
+        background: var(--negro);
+        padding: 120px 60px;
+    }
+
+    .why-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+        gap: 30px;
+        max-width: 1400px;
+        margin: 60px auto 0;
+    }
+
+    .why-card {
+        background: linear-gradient(135deg, var(--negro-card) 0%, var(--negro-suave) 100%);
+        padding: 45px 35px;
+        border-radius: 4px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .why-card .q-num {
+        font-family: 'Playfair Display', serif;
+        font-size: 5rem;
+        font-weight: 900;
+        color: rgba(138, 171, 90, 0.15);
+        position: absolute;
+        top: 10px; right: 20px;
+        line-height: 1;
+    }
+
+    .why-card h3 {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin-bottom: 18px;
+        color: var(--verde-acento);
+        line-height: 1.3;
+        position: relative;
+        z-index: 1;
+    }
+
+    .why-card p {
+        font-size: 0.95rem;
+        color: var(--gris-claro);
+        font-weight: 300;
+        line-height: 1.7;
+        position: relative;
+        z-index: 1;
+    }
+
+    .final-cta {
+        background:
+            linear-gradient(135deg, var(--verde-pino) 0%, #1a2918 100%);
+        padding: 160px 60px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .final-cta::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image:
+            linear-gradient(rgba(138, 171, 90, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(138, 171, 90, 0.05) 1px, transparent 1px);
+        background-size: 80px 80px;
+    }
+
+    .final-cta h2 {
+        position: relative;
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(3rem, 7vw, 6rem);
+        font-weight: 900;
+        line-height: 1;
+        letter-spacing: -1.5px;
+        margin-bottom: 30px;
+    }
+
+    .final-cta p {
+        position: relative;
+        font-size: 1.2rem;
+        color: var(--gris-claro);
+        max-width: 600px;
+        margin: 0 auto 50px;
+        font-weight: 300;
+    }
+
+    .final-cta .btn-primary { position: relative; }
+
+    footer {
+        background: var(--negro);
+        padding: 60px;
+        border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .footer-inner {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .footer-brand {
+        font-weight: 900;
+        font-size: 1.2rem;
+        letter-spacing: 4px;
+    }
+
+    .footer-brand span { color: var(--verde-acento); }
+
+    .footer-meta {
+        color: var(--gris);
+        font-size: 0.85rem;
         letter-spacing: 1px;
     }
 
-    tr:hover { background: var(--gris-suave); }
-
-    footer {
-        background: var(--negro-carbon);
-        color: var(--blanco-natural);
-        text-align: center;
-        padding: 30px;
-        margin-top: 40px;
-        letter-spacing: 2px;
-        font-size: 0.85rem;
+    @media (max-width: 900px) {
+        nav.main-nav { padding: 20px 25px; }
+        nav.main-nav.scrolled { padding: 12px 25px; }
+        .nav-links { display: none; }
+        section.full, .tech, .comparison, .specs, .packaging, .manifesto, .campaign, .why, .final-cta { padding: 80px 25px; }
+        .split-grid, .packaging-grid { grid-template-columns: 1fr; gap: 50px; }
+        .palette-grid { grid-template-columns: repeat(2, 1fr); }
+        .comparison-row { grid-template-columns: 1.5fr 1fr 1fr; padding: 20px 15px; font-size: 0.85rem; }
+        .gecko-icon { width: 140px; height: 140px; }
     }
 
-    footer .brand-mini { color: var(--verde-musgo); font-weight: 600; }
+    .reveal {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
 </style>
 </head>
 <body>
 
-<header>
-    <h1>GECKOFRAME</h1>
-    <p class="tagline">Decorá sin dejar huella</p>
-</header>
-
-<nav>
-    <a href="#producto">Producto</a>
-    <a href="#marca">Marca</a>
-    <a href="#diferenciacion">Diferenciación</a>
-    <a href="#especificaciones">Especificaciones</a>
-    <a href="#packaging">Packaging</a>
-    <a href="#marketing">Marketing</a>
-    <a href="#justificaciones">Justificaciones</a>
+<nav class="main-nav" id="navbar">
+    <div class="nav-logo">GECKO<span>FRAME</span></div>
+    <ul class="nav-links">
+        <li><a href="#historia">Historia</a></li>
+        <li><a href="#tecnologia">Tecnología</a></li>
+        <li><a href="#producto">Producto</a></li>
+        <li><a href="#packaging">Packaging</a></li>
+        <li><a href="#manifiesto">Manifiesto</a></li>
+    </ul>
+    <button class="nav-cta">Comprar</button>
 </nav>
 
-<main>
-
-<section id="producto">
-    <h2>1. Descripción del producto</h2>
-    <p><strong>GeckoFrame</strong> es un cuadro decorativo autoadherente inspirado en el sistema de adhesión natural de los geckos: una estructura microscópica compuesta por millones de filamentos diminutos llamados <em>setae</em>, presentes en las patas del animal, que generan fuerzas de adhesión sin necesidad de pegamentos.</p>
-
-    <p>Aplicando esta tecnología biomimética a la decoración del hogar, GeckoFrame se adhiere a superficies lisas de forma firme y segura, pero permite ser retirado y reposicionado cuantas veces el usuario lo desee, sin dejar marcas, residuos ni dañar la pared.</p>
-
-    <p>Es la solución pensada para quienes quieren decorar con libertad: estudiantes en alquiler, parejas que se mudan seguido, profesionales que rediseñan sus espacios o cualquier persona que valore una estética cuidada sin las complicaciones de los métodos de fijación tradicionales.</p>
-
-    <h3>En una frase</h3>
-    <p style="font-style: italic; font-size: 1.1rem; color: var(--verde-pino);">No se trata solo de un cuadro. Es la libertad de decorar sin compromisos.</p>
+<section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+        <div class="hero-eyebrow">Cuadro biomimético · Edición 01</div>
+        <h1 class="hero-title">Decorá<br>sin dejar <em>huella</em>.</h1>
+        <p class="hero-subtitle">El primer cuadro autoadherente inspirado en el sistema de adhesión natural de los geckos. Sin clavos, sin marcas, sin compromisos.</p>
+        <div class="hero-cta-group">
+            <a href="#producto" class="btn-primary">Descubrir</a>
+            <a href="#tecnologia" class="btn-secondary">Ver tecnología</a>
+        </div>
+    </div>
+    <div class="scroll-indicator">Scroll</div>
 </section>
 
-<section id="marca">
-    <h2>2. Nombre y etiqueta de la marca</h2>
-
-    <h3>Nombre</h3>
-    <p><strong>GeckoFrame</strong> — combina la inspiración biológica del producto (<em>gecko</em>) con su funcionalidad principal (<em>frame</em>, cuadro). Un nombre breve, internacional y fácil de recordar.</p>
-
-    <h3>Etiqueta</h3>
-    <p>Diseño minimalista en negro carbón con tipografía sans-serif de trazo fino, espaciado amplio y un acento en verde musgo. Comunica modernidad, tecnología y naturaleza al mismo tiempo.</p>
-
-    <div class="label-mock">
-        <div class="brand">GECKOFRAME</div>
-        <div class="line"></div>
-        <div class="sub">DECORÁ SIN DEJAR HUELLA</div>
-    </div>
-
-    <h3>Paleta cromática de la marca</h3>
-    <div class="palette">
-        <div class="color-chip chip-negro">NEGRO CARBÓN</div>
-        <div class="color-chip chip-musgo">VERDE MUSGO</div>
-        <div class="color-chip chip-pino">VERDE PINO</div>
-        <div class="color-chip chip-blanco">BLANCO NATURAL</div>
+<section class="story full" id="historia">
+    <div class="story-content reveal">
+        <div class="section-eyebrow">Capítulo 01 · Origen</div>
+        <h2 class="section-title">Inspirado en <em>la naturaleza</em>.<br>Diseñado para tu pared.</h2>
+        <p>Durante millones de años, los geckos perfeccionaron un sistema de adhesión que desafía la gravedad. Millones de filamentos microscópicos llamados <em>setae</em>, presentes en sus patas, les permiten escalar superficies imposibles sin pegamento, sin esfuerzo y sin dejar rastro.</p>
+        <p>Tomamos esa ingeniería natural y la trasladamos a un objeto cotidiano. El resultado es <strong>GeckoFrame</strong>: un cuadro que se adhiere con la misma elegancia con la que se retira.</p>
     </div>
 </section>
 
-<section id="diferenciacion">
-    <h2>3. Diferenciación frente a la competencia</h2>
-
-    <h3>Competencia directa</h3>
-    <ul>
-        <li>Cuadros tradicionales con clavos o tornillos</li>
-        <li>Cuadros con cinta adhesiva doble faz</li>
-        <li>Soportes removibles convencionales (tipo ganchos 3M)</li>
-    </ul>
-
-    <h3>¿Qué diferencia a GeckoFrame?</h3>
-    <table>
-        <tr>
-            <th>Característica</th>
-            <th>Competencia</th>
-            <th>GeckoFrame</th>
-        </tr>
-        <tr>
-            <td>Herramientas necesarias</td>
-            <td>Martillo, taladro</td>
-            <td>Ninguna</td>
-        </tr>
-        <tr>
-            <td>Perforaciones</td>
-            <td>Sí</td>
-            <td>No</td>
-        </tr>
-        <tr>
-            <td>Reutilizable</td>
-            <td>No</td>
-            <td>Sí, múltiples veces</td>
-        </tr>
-        <tr>
-            <td>Residuos al retirar</td>
-            <td>Pegamento, agujeros</td>
-            <td>Cero</td>
-        </tr>
-        <tr>
-            <td>Reposicionable</td>
-            <td>No</td>
-            <td>Sí, sin perder adherencia</td>
-        </tr>
-    </table>
-
-    <p style="margin-top: 20px;"><strong>La diferencia central:</strong> GeckoFrame no vende un cuadro. Vende la libertad de decorar sin dañar paredes, sin compromisos y sin arrepentimientos.</p>
-</section>
-
-<section id="especificaciones">
-    <h2>4. Especificaciones técnicas</h2>
-
-    <h3>Materiales</h3>
-    <ul>
-        <li><strong>Estructura:</strong> madera sintética ultraliviana</li>
-        <li><strong>Superficie:</strong> laminado moderno de acabado mate</li>
-        <li><strong>Base:</strong> tecnología autoadherente biomimética inspirada en los geckos</li>
-    </ul>
-
-    <h3>Peso aproximado</h3>
-    <p>Entre 500 g y 3 kg según el tamaño del cuadro.</p>
-
-    <h3>Superficies compatibles</h3>
-    <ul>
-        <li>Paredes lisas (pintura mate o satinada)</li>
-        <li>Madera lijada</li>
-        <li>Vidrio</li>
-        <li>Cerámica lisa</li>
-    </ul>
-
-    <h3>Características principales</h3>
-    <div class="features-grid">
-        <div class="feature-card">Fácil instalación</div>
-        <div class="feature-card">Reutilizable</div>
-        <div class="feature-card">Reposicionable</div>
-        <div class="feature-card">Sin herramientas</div>
-        <div class="feature-card">Sin perforaciones</div>
-        <div class="feature-card">No deja residuos</div>
-        <div class="feature-card">Diseño minimalista</div>
-        <div class="feature-card">Biomimético</div>
+<section class="tech" id="tecnologia">
+    <div class="split-grid">
+        <div class="split-visual reveal">
+            <svg class="gecko-icon" viewBox="0 0 100 100" fill="currentColor">
+                <path d="M50 15c-3 0-6 2-7 5l-2 6c-3 1-6 3-7 6l-8-3c-3-1-6 1-7 4-1 3 1 6 4 7l8 3c0 4 1 8 3 11l-5 6c-2 2-2 6 0 8 2 2 6 2 8 0l5-6c3 1 7 1 10 0l5 6c2 2 6 2 8 0 2-2 2-6 0-8l-5-6c2-3 3-7 3-11l8-3c3-1 5-4 4-7-1-3-4-5-7-4l-8 3c-1-3-4-5-7-6l-2-6c-1-3-4-5-7-5zm0 22c4 0 7 3 7 7s-3 7-7 7-7-3-7-7 3-7 7-7zm-12 18c0 0 4 4 12 4s12-4 12-4l3 8c-3 3-9 6-15 6s-12-3-15-6l3-8z"/>
+            </svg>
+        </div>
+        <div class="split-text reveal">
+            <div class="section-eyebrow">Tecnología · Biomimética</div>
+            <h2 class="section-title">Setae:<br>la <em>ingeniería</em><br>de millones de años.</h2>
+            <p>Cada pata de un gecko contiene aproximadamente 6.5 millones de filamentos llamados <em>setae</em>. Estos generan fuerzas de Van der Waals que permiten adhesión instantánea sobre superficies lisas.</p>
+            <p>GeckoFrame replica esta arquitectura microscópica en su base autoadherente. El resultado: un cuadro que se sostiene firme, pero se retira limpio. Sin químicos. Sin residuos. Sin perforaciones.</p>
+        </div>
     </div>
 </section>
 
-<section id="packaging">
-    <h2>5. Packaging</h2>
-
-    <h3>Concepto</h3>
-    <p>El packaging refleja los valores centrales de la marca: sostenibilidad, minimalismo y tecnología. Se descarta el plástico innecesario en favor de materiales reciclables que comunican coherencia ambiental.</p>
-
-    <h3>Estructura del envase</h3>
-    <ul>
-        <li><strong>Caja exterior:</strong> cartón corrugado reciclado de tono kraft natural, impresión en una sola tinta (negro carbón) para minimizar consumo de químicos.</li>
-        <li><strong>Tapa frontal:</strong> logotipo <em>GeckoFrame</em> centrado con acento verde musgo y el claim "Decorá sin dejar huella".</li>
-        <li><strong>Interior:</strong> separadores de cartón reciclado moldeado que protegen el cuadro sin usar telgopor ni espuma.</li>
-        <li><strong>Lámina protectora:</strong> film de papel encerado biodegradable que cubre la base autoadherente.</li>
-    </ul>
-
-    <h3>Información impresa</h3>
-    <ul>
-        <li>Instrucciones de instalación ilustradas en 3 pasos</li>
-        <li>Listado de superficies compatibles e incompatibles</li>
-        <li>Indicador de peso y dimensiones</li>
-        <li>Sello "100% reutilizable · 0% residuos"</li>
-        <li>QR que enlaza al video tutorial y la garantía</li>
-    </ul>
-
-    <h3>Experiencia de unboxing</h3>
-    <p>Al abrir la caja, el usuario encuentra primero una tarjeta de bienvenida con el mensaje: <em>"Bienvenido al mundo de la decoración sin huella"</em>. Debajo, el cuadro protegido y la lámina del adhesivo. Sin plásticos, sin excesos, sin culpa.</p>
-</section>
-
-<section id="marketing">
-    <h2>6. Copy de marketing</h2>
-
-    <h3>Slogan principal</h3>
-    <div class="copy-block">
-        <p class="slogan">"Decorá sin dejar huella."</p>
+<section class="comparison" id="producto">
+    <div class="comparison-header reveal">
+        <div class="section-eyebrow">Comparativa · El estándar</div>
+        <h2 class="section-title">No es <em>otro cuadro</em>.<br>Es una nueva categoría.</h2>
     </div>
-
-    <h3>Slogans alternativos</h3>
-    <ul>
-        <li><em>"Inspirado en la naturaleza. Diseñado para tu pared."</em></li>
-        <li><em>"Cambiá de idea. Cambiá de pared. Sin marcas."</em></li>
-        <li><em>"Adherencia perfecta. Cero compromiso."</em></li>
-        <li><em>"La pared queda intacta. La decoración, en tus manos."</em></li>
-    </ul>
-
-    <h3>Propuesta de valor (elevator pitch)</h3>
-    <p style="background: var(--gris-suave); padding: 20px; border-radius: 6px; font-style: italic;">GeckoFrame es el primer cuadro autoadherente inspirado en la biomimética de los geckos. Se coloca sin herramientas, se retira sin marcas y se reposiciona las veces que quieras. Decorar nunca fue tan libre.</p>
-
-    <h3>Contenido para redes sociales</h3>
-
-    <div class="social-post">
-        <div class="platform">Instagram · Post de lanzamiento</div>
-        <p><strong>Tu pared no debería pagar el precio de tu creatividad.</strong></p>
-        <p>Llegó GeckoFrame: el cuadro que se adhiere como un gecko y se va sin dejar rastro. Cambiá de lugar, cambiá de idea, cambiá de casa. La pared queda como nueva.</p>
-        <p>#GeckoFrame #SinHuella #DecoraciónBiomimética #Mudate</p>
-    </div>
-
-    <div class="social-post">
-        <div class="platform">TikTok · Hook de video</div>
-        <p>"Le saqué el cuadro a la pared después de 6 meses. Mirá cómo quedó."</p>
-        <p><em>(Cero marcas. Cero residuos. Cero excusas para no decorar.)</em></p>
-    </div>
-
-    <div class="social-post">
-        <div class="platform">Anuncio Meta Ads · Texto principal</div>
-        <p><strong>¿Alquilás? ¿Te mudás seguido? ¿No querés perforar la pared?</strong></p>
-        <p>GeckoFrame es un cuadro decorativo que se adhiere con tecnología inspirada en los geckos. Sin clavos. Sin pegamento. Sin marcas al retirarlo. Lo movés cuantas veces quieras.</p>
-        <p><strong>CTA:</strong> Conocé GeckoFrame →</p>
-    </div>
-
-    <div class="social-post">
-        <div class="platform">Email marketing · Asunto</div>
-        <p><em>"Esto va a cambiar tu forma de decorar (literalmente)."</em></p>
-    </div>
-
-    <h3>Tono de comunicación</h3>
-    <ul>
-        <li><strong>Cercano</strong> pero no informal</li>
-        <li><strong>Aspiracional</strong> sin ser elitista</li>
-        <li><strong>Técnico</strong> cuando hay que explicar la biomimética, simple en el resto</li>
-        <li><strong>Consciente</strong> del medioambiente sin caer en clichés</li>
-    </ul>
-</section>
-
-<section id="justificaciones">
-    <h2>7. Justificación de decisiones</h2>
-
-    <div class="qa">
-        <strong>¿Por qué un diseño minimalista?</strong>
-        El producto está pensado para espacios modernos y busca integrarse visualmente sin competir con la imagen del cuadro. El marco es el marco, no el protagonista.
-    </div>
-
-    <div class="qa">
-        <strong>¿Por qué una paleta de colores naturales?</strong>
-        Los tonos negro carbón, blanco natural y verdes transmiten modernidad, naturaleza, tecnología biomimética y limpieza visual al mismo tiempo. Refuerzan el origen biológico del producto sin caer en lo literal.
-    </div>
-
-    <div class="qa">
-        <strong>¿Por qué tecnología biomimética?</strong>
-        Permite diferenciar el producto de los cuadros convencionales con un argumento técnico sólido y verificable: un sistema reutilizable, menos invasivo y respaldado por la ingeniería que copia procesos naturales.
-    </div>
-
-    <div class="qa">
-        <strong>¿Por qué hacerlo removible y reposicionable?</strong>
-        Porque el mercado real lo necesita: muchos usuarios alquilan, redecoran con frecuencia o simplemente no quieren perforar paredes. Es la justificación comercial más fuerte del producto.
-    </div>
-
-    <div class="qa">
-        <strong>¿Por qué madera sintética y no madera natural?</strong>
-        Suena moderna, es ultraliviana (clave para el sistema de adhesión) y resulta más coherente con la propuesta tecnológica del producto. La madera natural sería pesada y rompería la narrativa.
-    </div>
-
-    <div class="qa">
-        <strong>¿Por qué no incluir paredes rugosas en superficies compatibles?</strong>
-        Porque obligaría a justificar excepciones técnicas y debilitaría la promesa central de adherencia perfecta. Mejor prometer menos y cumplir siempre.
-    </div>
-
-    <div class="qa">
-        <strong>¿Por qué packaging sostenible?</strong>
-        Si la propuesta de valor es "no dejar huella en tu pared", sería incoherente dejar una huella ambiental en el planeta. La sostenibilidad refuerza la narrativa de marca.
+    <div class="comparison-table reveal">
+        <div class="comparison-row header">
+            <div>Característica</div>
+            <div>Competencia</div>
+            <div>GeckoFrame</div>
+        </div>
+        <div class="comparison-row">
+            <div class="feature">Herramientas</div>
+            <div class="competition">Martillo, taladro</div>
+            <div class="gecko">Ninguna</div>
+        </div>
+        <div class="comparison-row">
+            <div class="feature">Perforaciones</div>
+            <div class="competition">Sí</div>
+            <div class="gecko">Cero</div>
+        </div>
+        <div class="comparison-row">
+            <div class="feature">Reutilizable</div>
+            <div class="competition">No</div>
+            <div class="gecko">Múltiples veces</div>
+        </div>
+        <div class="comparison-row">
+            <div class="feature">Residuos al retirar</div>
+            <div class="competition">Pegamento, agujeros</div>
+            <div class="gecko">Cero</div>
+        </div>
+        <div class="comparison-row">
+            <div class="feature">Reposicionable</div>
+            <div class="competition">No</div>
+            <div class="gecko">Sin perder adherencia</div>
+        </div>
+        <div class="comparison-row">
+            <div class="feature">Daño en pared</div>
+            <div class="competition">Permanente</div>
+            <div class="gecko">Inexistente</div>
+        </div>
     </div>
 </section>
 
-</main>
+<section class="specs">
+    <div style="text-align: center; max-width: 800px; margin: 0 auto;" class="reveal">
+        <div class="section-eyebrow">Especificaciones</div>
+        <h2 class="section-title">Cada detalle, <em>medido</em>.</h2>
+    </div>
+    <div class="specs-grid">
+        <div class="spec-card reveal">
+            <div class="num">01</div>
+            <h3>Estructura</h3>
+            <p>Madera sintética ultraliviana de alta densidad. Resistente, moderna, sin peso muerto.</p>
+        </div>
+        <div class="spec-card reveal">
+            <div class="num">02</div>
+            <h3>Acabado</h3>
+            <p>Laminado mate moderno. Refleja apenas lo necesario para integrarse a cualquier ambiente.</p>
+        </div>
+        <div class="spec-card reveal">
+            <div class="num">03</div>
+            <h3>Base biomimética</h3>
+            <p>Tecnología autoadherente inspirada en geckos. Adherencia firme, retirada limpia.</p>
+        </div>
+        <div class="spec-card reveal">
+            <div class="num">04</div>
+            <h3>Peso</h3>
+            <p>Entre 500 g y 3 kg según tamaño. Suficientemente liviano para adherirse sin esfuerzo.</p>
+        </div>
+        <div class="spec-card reveal">
+            <div class="num">05</div>
+            <h3>Superficies</h3>
+            <p>Paredes lisas, madera lijada, vidrio y cerámica. Todo lo que importa, sin excepciones.</p>
+        </div>
+        <div class="spec-card reveal">
+            <div class="num">06</div>
+            <h3>Instalación</h3>
+            <p>30 segundos. Sin herramientas. Sin manual. Sin marcas si decidís moverlo mañana.</p>
+        </div>
+    </div>
+</section>
+
+<section class="palette-section">
+    <div style="text-align: center; max-width: 800px; margin: 0 auto;" class="reveal">
+        <div class="section-eyebrow">Identidad cromática</div>
+        <h2 class="section-title">Cuatro tonos.<br>Una <em>filosofía</em>.</h2>
+    </div>
+    <div class="palette-grid reveal">
+        <div class="palette-block pal-negro">
+            <div class="hex">#0A0A0A</div>
+            <div class="name">Negro carbón</div>
+        </div>
+        <div class="palette-block pal-musgo">
+            <div class="hex">#8AAB5A</div>
+            <div class="name">Verde musgo</div>
+        </div>
+        <div class="palette-block pal-pino">
+            <div class="hex">#2D4A2B</div>
+            <div class="name">Verde pino</div>
+        </div>
+        <div class="palette-block pal-blanco">
+            <div class="hex">#F5F1E8</div>
+            <div class="name">Blanco natural</div>
+        </div>
+    </div>
+</section>
+
+<section class="packaging" id="packaging">
+    <div style="text-align: center; max-width: 800px; margin: 0 auto;" class="reveal">
+        <div class="section-eyebrow">Packaging · Cero residuos</div>
+        <h2 class="section-title">La <em>caja</em> también<br>cuenta una historia.</h2>
+    </div>
+    <div class="packaging-grid">
+        <div class="package-visual reveal">
+            <div class="package-label">
+                <div class="brand-pkg">GECKOFRAME</div>
+                <div class="line-pkg"></div>
+                <div class="claim-pkg">Decorá sin dejar huella</div>
+            </div>
+        </div>
+        <div class="reveal">
+            <ul class="package-features">
+                <li>
+                    <div>
+                        <strong>Cartón corrugado reciclado</strong>
+                        <span>Kraft natural, impresión en una sola tinta. Cero plástico, cero excesos.</span>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <strong>Separadores moldeados</strong>
+                        <span>Cartón reciclado en lugar de telgopor o espuma. Protege sin contaminar.</span>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <strong>Lámina biodegradable</strong>
+                        <span>Film de papel encerado que protege la base autoadherente y vuelve a la tierra.</span>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <strong>Información esencial</strong>
+                        <span>Instalación en 3 pasos, QR al video tutorial y sello "100% reutilizable · 0% residuos".</span>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <strong>Tarjeta de bienvenida</strong>
+                        <span>"Bienvenido al mundo de la decoración sin huella." Una experiencia, no un envase.</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="manifesto" id="manifiesto">
+    <div class="reveal">
+        <div class="section-eyebrow" style="margin-bottom: 50px;">Manifiesto</div>
+        <p class="manifesto-quote">"No vendemos un cuadro.<br>Vendemos la libertad de <em>cambiar de idea</em><br>sin pedir permiso a la pared."</p>
+        <p class="manifesto-sub">— GeckoFrame</p>
+    </div>
+</section>
+
+<section class="campaign">
+    <div style="text-align: center; max-width: 800px; margin: 0 auto;" class="reveal">
+        <div class="section-eyebrow">Campaña · Voz de marca</div>
+        <h2 class="section-title">Hablamos como <em>vivís</em>.</h2>
+    </div>
+    <div class="campaign-grid">
+        <div class="campaign-card reveal">
+            <div class="platform-tag">Instagram · Lanzamiento</div>
+            <p class="copy-text">"Tu pared no debería pagar el precio de tu creatividad."</p>
+            <p class="copy-desc">Llegó GeckoFrame: el cuadro que se adhiere como un gecko y se va sin dejar rastro. Cambiá de lugar, cambiá de idea, cambiá de casa.</p>
+            <p class="hashtags">#GeckoFrame #SinHuella</p>
+        </div>
+        <div class="campaign-card reveal">
+            <div class="platform-tag">TikTok · Hook</div>
+            <p class="copy-text">"Le saqué el cuadro a la pared después de 6 meses. Mirá cómo quedó."</p>
+            <p class="copy-desc">Cero marcas. Cero residuos. Cero excusas para no decorar.</p>
+        </div>
+        <div class="campaign-card reveal">
+            <div class="platform-tag">Meta Ads · Performance</div>
+            <p class="copy-text">"¿Alquilás? ¿Te mudás seguido? ¿No querés perforar la pared?"</p>
+            <p class="copy-desc">Tecnología inspirada en geckos. Sin clavos. Sin pegamento. Lo movés cuantas veces quieras.</p>
+        </div>
+        <div class="campaign-card reveal">
+            <div class="platform-tag">Email · Asunto</div>
+            <p class="copy-text">"Esto va a cambiar tu forma de decorar (literalmente)."</p>
+            <p class="copy-desc">Una línea, una promesa, una apertura garantizada.</p>
+        </div>
+    </div>
+</section>
+
+<section class="why">
+    <div style="text-align: center; max-width: 800px; margin: 0 auto;" class="reveal">
+        <div class="section-eyebrow">Decisiones · Justificadas</div>
+        <h2 class="section-title">Cada elección, <em>una razón</em>.</h2>
+    </div>
+    <div class="why-grid">
+        <div class="why-card reveal">
+            <div class="q-num">01</div>
+            <h3>¿Por qué un diseño minimalista?</h3>
+            <p>El cuadro está pensado para espacios modernos. Busca integrarse visualmente sin competir con la imagen que enmarca. El marco es el marco, no el protagonista.</p>
+        </div>
+        <div class="why-card reveal">
+            <div class="q-num">02</div>
+            <h3>¿Por qué tonos naturales?</h3>
+            <p>Negro carbón, blanco natural y verdes transmiten modernidad, naturaleza y tecnología al mismo tiempo. Refuerzan el origen biológico sin caer en lo literal.</p>
+        </div>
+        <div class="why-card reveal">
+            <div class="q-num">03</div>
+            <h3>¿Por qué biomimética?</h3>
+            <p>Es un argumento técnico sólido, verificable y diferenciador. Un sistema menos invasivo, respaldado por ingeniería que copia procesos naturales perfeccionados durante millones de años.</p>
+        </div>
+        <div class="why-card reveal">
+            <div class="q-num">04</div>
+            <h3>¿Por qué removible?</h3>
+            <p>Porque el mercado real lo necesita. Muchos alquilan, redecoran con frecuencia, o simplemente no quieren perforar paredes. Es la justificación comercial más fuerte.</p>
+        </div>
+        <div class="why-card reveal">
+            <div class="q-num">05</div>
+            <h3>¿Por qué madera sintética?</h3>
+            <p>Suena moderna, es ultraliviana — clave para el sistema de adhesión — y resulta coherente con la propuesta tecnológica. La madera natural sería pesada y rompería la narrativa.</p>
+        </div>
+        <div class="why-card reveal">
+            <div class="q-num">06</div>
+            <h3>¿Por qué packaging sostenible?</h3>
+            <p>Si la promesa es "no dejar huella en tu pared", sería incoherente dejar una huella ambiental en el planeta. La sostenibilidad refuerza la narrativa de marca.</p>
+        </div>
+    </div>
+</section>
+
+<section class="final-cta">
+    <h2>¿Lista para <em>decorar</em><br>sin compromisos?</h2>
+    <p>Unite a la nueva generación de personas que decoran con libertad. Sin marcas. Sin clavos. Sin arrepentimientos.</p>
+    <a href="#" class="btn-primary">Reservar mi GeckoFrame</a>
+</section>
 
 <footer>
-    <p><span class="brand-mini">GECKOFRAME</span> · Decorá sin dejar huella · 2026</p>
+    <div class="footer-inner">
+        <div class="footer-brand">GECKO<span>FRAME</span></div>
+        <div class="footer-meta">© 2026 · Decorá sin dejar huella · Edición 01</div>
+    </div>
 </footer>
+
+<script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 60) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15 });
+    reveals.forEach(el => observer.observe(el));
+</script>
 
 </body>
 </html>
