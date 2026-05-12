@@ -35,41 +35,6 @@
         font-weight: 400;
     }
 
-    /* ===== LOGO SVG ===== */
-    .logo-svg {
-        display: inline-flex;
-        align-items: center;
-        gap: 14px;
-    }
-
-    .logo-mark {
-        width: 42px;
-        height: 42px;
-        flex-shrink: 0;
-    }
-
-    .logo-mark .frame-square {
-        fill: none;
-        stroke: var(--negro-carbon);
-        stroke-width: 4;
-    }
-
-    .logo-text {
-        display: flex;
-        flex-direction: column;
-        line-height: 1;
-    }
-
-    .logo-text .gf {
-        font-family: 'Outfit', sans-serif;
-        font-weight: 700;
-        font-size: 1rem;
-        letter-spacing: 3px;
-        color: var(--blanco-natural);
-    }
-
-    .logo-text .gf .gf-frame { color: var(--verde-musgo); }
-
     /* ===== NAVEGACIÓN ===== */
     nav.main-nav {
         position: fixed;
@@ -96,15 +61,11 @@
         gap: 12px;
     }
 
-    .nav-logo .nav-logo-svg {
-        width: 38px;
-        height: 38px;
-    }
-
-    .nav-logo .nav-logo-svg .frame-square {
-        fill: none;
-        stroke: var(--blanco-natural);
-        stroke-width: 4;
+    .nav-logo .nav-logo-img {
+        width: 42px;
+        height: 42px;
+        object-fit: contain;
+        display: block;
     }
 
     .nav-logo .nav-logo-text {
@@ -422,15 +383,12 @@
         margin-bottom: 30px;
     }
 
-    .identity-logo-block .big-logo svg {
-        width: 130px;
-        height: 130px;
-    }
-
-    .identity-logo-block .big-logo svg .frame-square {
-        fill: none;
-        stroke: var(--negro-carbon);
-        stroke-width: 4;
+    .identity-logo-block .big-logo-img {
+        width: 150px;
+        height: 150px;
+        object-fit: contain;
+        display: block;
+        border-radius: 4px;
     }
 
     .identity-logo-block .big-logo-text {
@@ -1420,14 +1378,12 @@
         gap: 12px;
         margin-bottom: 18px;
     }
-    .footer-brand-block .footer-logo svg {
-        width: 45px;
-        height: 45px;
-    }
-    .footer-brand-block .footer-logo svg .frame-square {
-        fill: none;
-        stroke: var(--blanco-natural);
-        stroke-width: 4;
+    .footer-brand-block .footer-logo-img {
+        width: 50px;
+        height: 50px;
+        object-fit: contain;
+        display: block;
+        border-radius: 3px;
     }
     .footer-brand-block .footer-brand {
         font-family: 'Outfit', sans-serif;
@@ -1507,83 +1463,11 @@
 </head>
 <body>
 
-<!-- SVG DEFS para reutilizar el logo -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-    <defs>
-        <symbol id="gecko-logo" viewBox="0 0 200 200">
-            <defs>
-                <clipPath id="paw-shape">
-                    <!-- Silueta de pata de gecko: 5 dedos con yemas redondeadas + palma -->
-                    <path d="M100 18
-                             C88 18 80 28 80 42
-                             L80 58
-                             C75 56 68 56 62 60
-                             C50 64 42 75 44 88
-                             C46 95 50 100 56 102
-                             C48 105 42 112 40 122
-                             C38 135 44 148 56 152
-                             C62 154 70 154 76 152
-                             L82 150
-                             C85 158 92 164 100 164
-                             C108 164 115 158 118 150
-                             L124 152
-                             C130 154 138 154 144 152
-                             C156 148 162 135 160 122
-                             C158 112 152 105 144 102
-                             C150 100 154 95 156 88
-                             C158 75 150 64 138 60
-                             C132 56 125 56 120 58
-                             L120 42
-                             C120 28 112 18 100 18 Z"/>
-                </clipPath>
-            </defs>
-            <!-- Marco exterior -->
-            <rect class="frame-square" x="10" y="10" width="180" height="180" fill="none"/>
-            <!-- Silueta verde musgo -->
-            <rect x="0" y="0" width="200" height="200" fill="#8a9555" clip-path="url(#paw-shape)"/>
-            <!-- Líneas tipo huella digital (negro carbón) - aplicadas solo sobre la pata -->
-            <g clip-path="url(#paw-shape)" stroke="#1c1f15" fill="none" stroke-width="2">
-                <!-- Líneas concéntricas en la palma central (espiral de huella) -->
-                <circle cx="100" cy="115" r="6"/>
-                <circle cx="100" cy="115" r="12"/>
-                <circle cx="100" cy="115" r="18"/>
-                <circle cx="100" cy="115" r="24"/>
-                <circle cx="100" cy="115" r="30"/>
-                <!-- Franjas horizontales sobre el dedo central superior -->
-                <line x1="80" y1="28" x2="120" y2="28"/>
-                <line x1="78" y1="34" x2="122" y2="34"/>
-                <line x1="78" y1="40" x2="122" y2="40"/>
-                <line x1="78" y1="46" x2="122" y2="46"/>
-                <line x1="78" y1="52" x2="122" y2="52"/>
-                <line x1="78" y1="58" x2="122" y2="58"/>
-                <!-- Franjas en dedo lateral superior izquierdo -->
-                <line x1="44" y1="72" x2="68" y2="72" transform="rotate(-15 56 72)"/>
-                <line x1="42" y1="80" x2="68" y2="80" transform="rotate(-15 55 80)"/>
-                <line x1="42" y1="88" x2="68" y2="88" transform="rotate(-15 55 88)"/>
-                <!-- Franjas en dedo lateral superior derecho -->
-                <line x1="132" y1="72" x2="156" y2="72" transform="rotate(15 144 72)"/>
-                <line x1="132" y1="80" x2="158" y2="80" transform="rotate(15 145 80)"/>
-                <line x1="132" y1="88" x2="158" y2="88" transform="rotate(15 145 88)"/>
-                <!-- Franjas en dedo inferior izquierdo -->
-                <line x1="38" y1="115" x2="62" y2="115" transform="rotate(-35 50 115)"/>
-                <line x1="36" y1="125" x2="64" y2="125" transform="rotate(-35 50 125)"/>
-                <line x1="38" y1="135" x2="64" y2="135" transform="rotate(-35 51 135)"/>
-                <line x1="40" y1="145" x2="62" y2="145" transform="rotate(-35 51 145)"/>
-                <!-- Franjas en dedo inferior derecho -->
-                <line x1="138" y1="115" x2="162" y2="115" transform="rotate(35 150 115)"/>
-                <line x1="136" y1="125" x2="164" y2="125" transform="rotate(35 150 125)"/>
-                <line x1="136" y1="135" x2="162" y2="135" transform="rotate(35 149 135)"/>
-                <line x1="138" y1="145" x2="160" y2="145" transform="rotate(35 149 145)"/>
-            </g>
-        </symbol>
-    </defs>
-</svg>
+<!-- Logo de marca (imagen real del manual) -->
 
 <nav class="main-nav" id="navbar">
     <div class="nav-logo">
-        <svg class="nav-logo-svg" viewBox="0 0 100 100">
-            <use href="#gecko-logo"/>
-        </svg>
+        <img src="logo.png" alt="GeckoFrame" class="nav-logo-img">
         <div class="nav-logo-text">GECKO<span>FRAME</span></div>
     </div>
     <ul class="nav-links">
@@ -1635,9 +1519,7 @@
     <div class="identity-grid">
         <div class="identity-logo-block reveal">
             <div class="big-logo">
-                <svg viewBox="0 0 100 100">
-                    <use href="#gecko-logo"/>
-                </svg>
+                <img src="logo.png" alt="GeckoFrame" class="big-logo-img">
                 <div class="big-logo-text">GECKO<span>FRAME</span></div>
             </div>
             <div class="gf-mono">G<span>F</span></div>
@@ -2189,9 +2071,7 @@
     <div class="footer-grid">
         <div class="footer-brand-block">
             <div class="footer-logo">
-                <svg viewBox="0 0 100 100">
-                    <use href="#gecko-logo"/>
-                </svg>
+                <img src="logo.png" alt="GeckoFrame" class="footer-logo-img">
                 <div class="footer-brand">GECKO<span>FRAME</span></div>
             </div>
             <div class="footer-tagline">Decorá sin huellas</div>
