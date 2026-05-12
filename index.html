@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GeckoFrame — Tu espacio, tus reglas</title>
+<title>GeckoFrame — Decorá sin huellas</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -1510,23 +1510,70 @@
 <!-- SVG DEFS para reutilizar el logo -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <defs>
-        <symbol id="gecko-logo" viewBox="0 0 100 100">
-            <rect class="frame-square" x="6" y="6" width="88" height="88"/>
-            <g fill="#8a9555">
-                <!-- Pata de gecko estilizada con líneas de huella -->
-                <path d="M50 20 C45 20, 42 24, 42 30 L42 42 C40 42, 38 43, 36 44 C32 41, 28 40, 25 42 C22 44, 21 48, 23 52 L26 58 C24 60, 23 63, 24 66 L28 75 C30 78, 33 80, 37 80 L44 80 C45 82, 46 83, 48 83 L52 83 C54 83, 55 82, 56 80 L63 80 C67 80, 70 78, 72 75 L76 66 C77 63, 76 60, 74 58 L77 52 C79 48, 78 44, 75 42 C72 40, 68 41, 64 44 C62 43, 60 42, 58 42 L58 30 C58 24, 55 20, 50 20 Z"/>
-                <!-- Líneas tipo huella digital sobre la pata -->
-                <path d="M50 25 C47 25, 45 27, 45 30 L45 40" stroke="#1c1f15" stroke-width="0.8" fill="none"/>
-                <path d="M50 28 C48 28, 47 30, 47 32 L47 40" stroke="#1c1f15" stroke-width="0.8" fill="none"/>
-                <path d="M50 30 C49 30, 49 32, 49 34 L49 40" stroke="#1c1f15" stroke-width="0.8" fill="none"/>
-                <path d="M44 50 L44 70" stroke="#1c1f15" stroke-width="0.8" fill="none"/>
-                <path d="M48 52 L48 76" stroke="#1c1f15" stroke-width="0.8" fill="none"/>
-                <path d="M52 52 L52 76" stroke="#1c1f15" stroke-width="0.8" fill="none"/>
-                <path d="M56 50 L56 70" stroke="#1c1f15" stroke-width="0.8" fill="none"/>
-                <path d="M30 52 C30 58, 32 64, 35 68" stroke="#1c1f15" stroke-width="0.8" fill="none"/>
-                <path d="M34 50 C34 56, 36 62, 38 66" stroke="#1c1f15" stroke-width="0.8" fill="none"/>
-                <path d="M66 50 C66 56, 64 62, 62 66" stroke="#1c1f15" stroke-width="0.8" fill="none"/>
-                <path d="M70 52 C70 58, 68 64, 65 68" stroke="#1c1f15" stroke-width="0.8" fill="none"/>
+        <symbol id="gecko-logo" viewBox="0 0 200 200">
+            <defs>
+                <clipPath id="paw-shape">
+                    <!-- Silueta de pata de gecko: 5 dedos con yemas redondeadas + palma -->
+                    <path d="M100 18
+                             C88 18 80 28 80 42
+                             L80 58
+                             C75 56 68 56 62 60
+                             C50 64 42 75 44 88
+                             C46 95 50 100 56 102
+                             C48 105 42 112 40 122
+                             C38 135 44 148 56 152
+                             C62 154 70 154 76 152
+                             L82 150
+                             C85 158 92 164 100 164
+                             C108 164 115 158 118 150
+                             L124 152
+                             C130 154 138 154 144 152
+                             C156 148 162 135 160 122
+                             C158 112 152 105 144 102
+                             C150 100 154 95 156 88
+                             C158 75 150 64 138 60
+                             C132 56 125 56 120 58
+                             L120 42
+                             C120 28 112 18 100 18 Z"/>
+                </clipPath>
+            </defs>
+            <!-- Marco exterior -->
+            <rect class="frame-square" x="10" y="10" width="180" height="180" fill="none"/>
+            <!-- Silueta verde musgo -->
+            <rect x="0" y="0" width="200" height="200" fill="#8a9555" clip-path="url(#paw-shape)"/>
+            <!-- Líneas tipo huella digital (negro carbón) - aplicadas solo sobre la pata -->
+            <g clip-path="url(#paw-shape)" stroke="#1c1f15" fill="none" stroke-width="2">
+                <!-- Líneas concéntricas en la palma central (espiral de huella) -->
+                <circle cx="100" cy="115" r="6"/>
+                <circle cx="100" cy="115" r="12"/>
+                <circle cx="100" cy="115" r="18"/>
+                <circle cx="100" cy="115" r="24"/>
+                <circle cx="100" cy="115" r="30"/>
+                <!-- Franjas horizontales sobre el dedo central superior -->
+                <line x1="80" y1="28" x2="120" y2="28"/>
+                <line x1="78" y1="34" x2="122" y2="34"/>
+                <line x1="78" y1="40" x2="122" y2="40"/>
+                <line x1="78" y1="46" x2="122" y2="46"/>
+                <line x1="78" y1="52" x2="122" y2="52"/>
+                <line x1="78" y1="58" x2="122" y2="58"/>
+                <!-- Franjas en dedo lateral superior izquierdo -->
+                <line x1="44" y1="72" x2="68" y2="72" transform="rotate(-15 56 72)"/>
+                <line x1="42" y1="80" x2="68" y2="80" transform="rotate(-15 55 80)"/>
+                <line x1="42" y1="88" x2="68" y2="88" transform="rotate(-15 55 88)"/>
+                <!-- Franjas en dedo lateral superior derecho -->
+                <line x1="132" y1="72" x2="156" y2="72" transform="rotate(15 144 72)"/>
+                <line x1="132" y1="80" x2="158" y2="80" transform="rotate(15 145 80)"/>
+                <line x1="132" y1="88" x2="158" y2="88" transform="rotate(15 145 88)"/>
+                <!-- Franjas en dedo inferior izquierdo -->
+                <line x1="38" y1="115" x2="62" y2="115" transform="rotate(-35 50 115)"/>
+                <line x1="36" y1="125" x2="64" y2="125" transform="rotate(-35 50 125)"/>
+                <line x1="38" y1="135" x2="64" y2="135" transform="rotate(-35 51 135)"/>
+                <line x1="40" y1="145" x2="62" y2="145" transform="rotate(-35 51 145)"/>
+                <!-- Franjas en dedo inferior derecho -->
+                <line x1="138" y1="115" x2="162" y2="115" transform="rotate(35 150 115)"/>
+                <line x1="136" y1="125" x2="164" y2="125" transform="rotate(35 150 125)"/>
+                <line x1="136" y1="135" x2="162" y2="135" transform="rotate(35 149 135)"/>
+                <line x1="138" y1="145" x2="160" y2="145" transform="rotate(35 149 145)"/>
             </g>
         </symbol>
     </defs>
@@ -1554,8 +1601,8 @@
     <div class="hero-image"></div>
     <div class="hero-content">
         <div class="hero-eyebrow">Edición 01 · Cuadro biomimético</div>
-        <h1 class="hero-title">Decorá<br>sin dejar <em>huella</em>.</h1>
-        <div class="hero-tagline">Tu espacio, tus reglas</div>
+        <h1 class="hero-title">Decorá<br>sin <em>huellas</em>.</h1>
+        <div class="hero-tagline">Sin marcas. Sin límites.</div>
         <p class="hero-subtitle">El primer cuadro autoadherente del mundo inspirado en el sistema de adhesión de los geckos. Sin clavos. Sin marcas. Sin compromisos.</p>
         <div class="hero-cta-group">
             <a href="#medidas" class="btn-primary">Descubrir <span class="arrow">→</span></a>
@@ -1594,7 +1641,7 @@
                 <div class="big-logo-text">GECKO<span>FRAME</span></div>
             </div>
             <div class="gf-mono">G<span>F</span></div>
-            <div class="tagline-script">Tu espacio, tus reglas</div>
+            <div class="tagline-script">Decorá sin huellas</div>
         </div>
         <div class="identity-features reveal">
             <h3>Lo que hace al producto</h3>
@@ -1864,7 +1911,7 @@
 <section class="reviews" id="resenas">
     <div class="reviews-header reveal">
         <div class="section-eyebrow">Comunidad · Voces reales</div>
-        <h2 class="section-title">Lo que dicen <em>quienes ya decoran</em><br>sin dejar huella.</h2>
+        <h2 class="section-title">Lo que dicen <em>quienes ya decoran</em><br>sin huellas.</h2>
         <div class="reviews-rating">
             <div class="stars">
                 <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
@@ -2010,7 +2057,7 @@
             <div class="package-label">
                 <div class="brand-pkg">GECKO<span>FRAME</span></div>
                 <div class="line-pkg"></div>
-                <div class="claim-pkg">Tu espacio, tus reglas</div>
+                <div class="claim-pkg">Decorá sin huellas</div>
             </div>
         </div>
         <div class="reveal">
@@ -2042,7 +2089,7 @@
                 <li>
                     <div>
                         <strong>Tarjeta de bienvenida</strong>
-                        <span>"Bienvenido al mundo de la decoración sin huella." Una experiencia, no un envase.</span>
+                        <span>"Bienvenido al mundo de la decoración sin huellas." Una experiencia, no un envase.</span>
                     </div>
                 </li>
             </ul>
@@ -2131,7 +2178,7 @@
 
 <!-- CTA FINAL -->
 <section class="final-cta">
-    <div class="final-cta-tagline">Tu espacio, tus reglas</div>
+    <div class="final-cta-tagline">Decorá sin huellas</div>
     <h2>¿Lista para <em>decorar</em><br>sin compromisos?</h2>
     <p>Unite a la nueva generación de personas que decoran con libertad. Sin marcas. Sin clavos. Sin arrepentimientos.</p>
     <a href="#" class="btn-primary">Reservar mi GeckoFrame <span class="arrow">→</span></a>
@@ -2147,7 +2194,7 @@
                 </svg>
                 <div class="footer-brand">GECKO<span>FRAME</span></div>
             </div>
-            <div class="footer-tagline">Tu espacio, tus reglas</div>
+            <div class="footer-tagline">Decorá sin huellas</div>
             <p>Cuadros autoadherentes biomiméticos. Diseñados en Argentina. Hechos para moverse con vos.</p>
         </div>
         <div class="footer-col">
