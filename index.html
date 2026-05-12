@@ -4,23 +4,25 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GeckoFrame — Decorá sin dejar huella</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700;900&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700;800;900&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
     :root {
         --negro: #0a0a0a;
-        --negro-suave: #161616;
+        --negro-suave: #131313;
         --negro-card: #1c1c1c;
         --verde-musgo: #8aab5a;
-        --verde-acento: #b8d97a;
+        --verde-acento: #c5e87a;
+        --verde-neon: #d4ff5e;
         --verde-pino: #2d4a2b;
         --blanco: #f5f1e8;
         --gris: #6a6a6a;
         --gris-claro: #aaa;
+        --coral: #ff5f3d;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     html { scroll-behavior: smooth; }
+    ::selection { background: var(--verde-acento); color: var(--negro); }
 
     body {
         font-family: 'Inter', sans-serif;
@@ -30,6 +32,7 @@
         line-height: 1.5;
     }
 
+    /* ===== NAVEGACIÓN ===== */
     nav.main-nav {
         position: fixed;
         top: 0; left: 0; right: 0;
@@ -56,15 +59,9 @@
         letter-spacing: 4px;
         color: var(--blanco);
     }
-
     .nav-logo span { color: var(--verde-acento); }
 
-    .nav-links {
-        display: flex;
-        gap: 40px;
-        list-style: none;
-    }
-
+    .nav-links { display: flex; gap: 40px; list-style: none; }
     .nav-links a {
         color: var(--blanco);
         text-decoration: none;
@@ -76,7 +73,6 @@
         padding: 5px 0;
         transition: color 0.3s;
     }
-
     .nav-links a::after {
         content: '';
         position: absolute;
@@ -85,71 +81,73 @@
         background: var(--verde-acento);
         transition: width 0.3s ease;
     }
-
     .nav-links a:hover { color: var(--verde-acento); }
     .nav-links a:hover::after { width: 100%; }
 
     .nav-cta {
         background: var(--verde-acento);
         color: var(--negro);
-        padding: 10px 22px;
+        padding: 11px 24px;
         border: none;
         border-radius: 2px;
         font-size: 0.75rem;
-        font-weight: 700;
+        font-weight: 800;
         letter-spacing: 2px;
         text-transform: uppercase;
         cursor: pointer;
         transition: all 0.3s;
     }
-
     .nav-cta:hover {
         background: var(--blanco);
         transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(197, 232, 122, 0.25);
     }
 
+    /* ===== HERO ===== */
     .hero {
         height: 100vh;
-        min-height: 700px;
+        min-height: 720px;
         position: relative;
         display: flex;
         align-items: center;
-        justify-content: center;
         overflow: hidden;
         background: var(--negro);
     }
 
-    .hero-bg {
+    .hero-image {
         position: absolute;
         inset: 0;
-        background:
-            radial-gradient(ellipse at 70% 50%, rgba(138, 171, 90, 0.18) 0%, transparent 60%),
-            radial-gradient(ellipse at 20% 80%, rgba(45, 74, 43, 0.4) 0%, transparent 50%),
-            linear-gradient(135deg, #0a0a0a 0%, #1a1f15 100%);
+        background-image:
+            linear-gradient(90deg, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.5) 50%, rgba(10,10,10,0.85) 100%),
+            url('https://images.unsplash.com/photo-1513519245088-0e12902e5a38?ixlib=rb-4.0.3&auto=format&fit=crop&w=2400&q=85');
+        background-size: cover;
+        background-position: center;
+        filter: saturate(0.85);
     }
 
-    .hero-bg::before {
+    .hero-image::after {
         content: '';
         position: absolute;
         inset: 0;
         background-image:
-            linear-gradient(rgba(138, 171, 90, 0.04) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(138, 171, 90, 0.04) 1px, transparent 1px);
-        background-size: 60px 60px;
-        animation: gridMove 20s linear infinite;
+            linear-gradient(rgba(197, 232, 122, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(197, 232, 122, 0.03) 1px, transparent 1px);
+        background-size: 80px 80px;
+        animation: gridMove 25s linear infinite;
     }
 
     @keyframes gridMove {
         from { background-position: 0 0; }
-        to { background-position: 60px 60px; }
+        to { background-position: 80px 80px; }
     }
 
     .hero-content {
         position: relative;
         z-index: 2;
-        text-align: center;
-        padding: 0 30px;
-        max-width: 1200px;
+        padding: 0 80px;
+        max-width: 1400px;
+        margin: 0 auto;
+        width: 100%;
         animation: fadeUp 1.2s ease-out;
     }
 
@@ -159,153 +157,155 @@
     }
 
     .hero-eyebrow {
-        font-size: 0.8rem;
-        letter-spacing: 6px;
+        font-size: 0.75rem;
+        letter-spacing: 8px;
         color: var(--verde-acento);
         text-transform: uppercase;
-        margin-bottom: 25px;
-        font-weight: 500;
+        margin-bottom: 30px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+    .hero-eyebrow::before {
+        content: '';
+        display: inline-block;
+        width: 50px;
+        height: 1px;
+        background: var(--verde-acento);
     }
 
     .hero-title {
         font-family: 'Playfair Display', serif;
-        font-size: clamp(3rem, 9vw, 8rem);
+        font-size: clamp(3.5rem, 10vw, 9rem);
         font-weight: 900;
-        line-height: 0.95;
-        letter-spacing: -2px;
-        margin-bottom: 30px;
-        background: linear-gradient(180deg, #fff 0%, #999 100%);
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
+        line-height: 0.9;
+        letter-spacing: -3px;
+        margin-bottom: 35px;
+        color: var(--blanco);
+        max-width: 1100px;
     }
-
     .hero-title em {
         font-style: italic;
         color: var(--verde-acento);
-        -webkit-text-fill-color: var(--verde-acento);
+    }
+    .hero-title .stroke {
+        -webkit-text-stroke: 2px var(--blanco);
+        -webkit-text-fill-color: transparent;
+        font-style: italic;
     }
 
     .hero-subtitle {
-        font-size: clamp(1rem, 1.6vw, 1.3rem);
+        font-size: clamp(1.05rem, 1.4vw, 1.25rem);
         color: var(--gris-claro);
-        max-width: 600px;
-        margin: 0 auto 50px;
+        max-width: 540px;
+        margin-bottom: 55px;
         font-weight: 300;
-        line-height: 1.6;
+        line-height: 1.7;
     }
 
-    .hero-cta-group {
-        display: flex;
-        gap: 20px;
-        justify-content: center;
-        flex-wrap: wrap;
-    }
+    .hero-cta-group { display: flex; gap: 20px; flex-wrap: wrap; }
 
     .btn-primary, .btn-secondary {
-        padding: 18px 38px;
-        font-size: 0.85rem;
+        padding: 20px 42px;
+        font-size: 0.8rem;
         letter-spacing: 3px;
         text-transform: uppercase;
-        font-weight: 700;
+        font-weight: 800;
         cursor: pointer;
         border: none;
         border-radius: 2px;
         transition: all 0.3s;
         text-decoration: none;
-        display: inline-block;
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
     }
-
-    .btn-primary {
-        background: var(--verde-acento);
-        color: var(--negro);
-    }
-
+    .btn-primary { background: var(--verde-acento); color: var(--negro); }
     .btn-primary:hover {
         background: var(--blanco);
         transform: translateY(-3px);
-        box-shadow: 0 10px 30px rgba(138, 171, 90, 0.3);
+        box-shadow: 0 15px 40px rgba(197, 232, 122, 0.35);
     }
+    .btn-primary .arrow { transition: transform 0.3s; }
+    .btn-primary:hover .arrow { transform: translateX(6px); }
 
     .btn-secondary {
         background: transparent;
         color: var(--blanco);
         border: 1px solid rgba(255,255,255,0.3);
     }
-
     .btn-secondary:hover {
         border-color: var(--verde-acento);
         color: var(--verde-acento);
     }
 
-    .scroll-indicator {
+    .hero-meta {
         position: absolute;
         bottom: 40px;
-        left: 50%;
-        transform: translateX(-50%);
+        left: 80px;
+        right: 80px;
+        z-index: 2;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
         color: var(--gris-claro);
         font-size: 0.7rem;
         letter-spacing: 4px;
         text-transform: uppercase;
-        animation: pulse 2s infinite;
     }
 
-    .scroll-indicator::after {
+    .hero-meta .scroll-cue { display: flex; align-items: center; gap: 12px; }
+    .hero-meta .scroll-cue::after {
         content: '';
-        display: block;
         width: 1px;
-        height: 40px;
-        background: var(--verde-acento);
-        margin: 12px auto 0;
+        height: 50px;
+        background: linear-gradient(to bottom, var(--verde-acento), transparent);
+        animation: scrollLine 2s ease-in-out infinite;
     }
 
-    @keyframes pulse {
-        0%, 100% { opacity: 0.6; }
-        50% { opacity: 1; }
+    @keyframes scrollLine {
+        0%, 100% { opacity: 0.5; height: 50px; }
+        50% { opacity: 1; height: 60px; }
     }
 
-    section.full {
-        min-height: 100vh;
-        padding: 120px 60px;
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-
+    /* ===== SECCIONES BASE ===== */
     .section-eyebrow {
-        font-size: 0.75rem;
-        letter-spacing: 5px;
+        font-size: 0.72rem;
+        letter-spacing: 6px;
         color: var(--verde-acento);
         text-transform: uppercase;
-        margin-bottom: 20px;
-        font-weight: 600;
+        margin-bottom: 22px;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .section-eyebrow::before {
+        content: '';
+        display: inline-block;
+        width: 30px;
+        height: 1px;
+        background: var(--verde-acento);
     }
 
     .section-title {
         font-family: 'Playfair Display', serif;
-        font-size: clamp(2.5rem, 5.5vw, 5rem);
+        font-size: clamp(2.5rem, 5.5vw, 5.5rem);
         font-weight: 900;
         line-height: 1;
-        letter-spacing: -1.5px;
+        letter-spacing: -2px;
         margin-bottom: 30px;
     }
+    .section-title em { font-style: italic; color: var(--verde-acento); }
 
-    .section-title em {
-        font-style: italic;
-        color: var(--verde-acento);
-    }
-
+    /* ===== STORY ===== */
     .story {
+        padding: 160px 60px;
         background: var(--negro);
         text-align: center;
     }
-
-    .story-content {
-        max-width: 900px;
-        margin: 0 auto;
-    }
-
+    .story-content { max-width: 900px; margin: 0 auto; }
     .story p {
         font-size: clamp(1.1rem, 1.5vw, 1.4rem);
         color: var(--gris-claro);
@@ -313,10 +313,9 @@
         margin-bottom: 25px;
         line-height: 1.7;
     }
-
     .story p:first-of-type::first-letter {
         font-family: 'Playfair Display', serif;
-        font-size: 4rem;
+        font-size: 4.5rem;
         font-weight: 900;
         color: var(--verde-acento);
         float: left;
@@ -324,9 +323,12 @@
         padding: 8px 18px 0 0;
     }
 
+    /* ===== TECNOLOGÍA / SPLIT ===== */
     .tech {
         background: var(--negro-suave);
-        padding: 120px 60px;
+        padding: 140px 60px;
+        position: relative;
+        overflow: hidden;
     }
 
     .split-grid {
@@ -338,59 +340,147 @@
         align-items: center;
     }
 
-    .split-visual {
-        aspect-ratio: 1;
-        background:
-            radial-gradient(circle at center, var(--verde-musgo) 0%, transparent 70%),
-            var(--negro-card);
+    .tech-visual {
+        aspect-ratio: 4/5;
+        background-image:
+            linear-gradient(135deg, rgba(10,10,10,0.6) 0%, rgba(10,10,10,0.3) 100%),
+            url('https://images.unsplash.com/photo-1591958911259-bee2173bdccc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+        background-size: cover;
+        background-position: center;
         border-radius: 4px;
         position: relative;
         overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        box-shadow: 0 30px 80px rgba(0,0,0,0.6);
     }
 
-    .split-visual::before {
+    .tech-visual::before {
         content: '';
         position: absolute;
         inset: 0;
-        background-image:
-            radial-gradient(circle at 25% 25%, var(--verde-acento) 1px, transparent 2px),
-            radial-gradient(circle at 75% 75%, var(--verde-acento) 1px, transparent 2px),
-            radial-gradient(circle at 50% 50%, var(--verde-acento) 1px, transparent 2px);
-        background-size: 30px 30px, 40px 40px, 50px 50px;
-        opacity: 0.3;
+        background: radial-gradient(circle at 70% 30%, rgba(197, 232, 122, 0.15) 0%, transparent 60%);
     }
 
-    .gecko-icon {
+    .tech-visual .stat {
+        position: absolute;
+        bottom: 30px;
+        left: 30px;
+        right: 30px;
+        background: rgba(10,10,10,0.85);
+        backdrop-filter: blur(12px);
+        padding: 25px 28px;
+        border-left: 3px solid var(--verde-acento);
+        border-radius: 2px;
+    }
+    .tech-visual .stat .number {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.8rem;
+        font-weight: 900;
         color: var(--verde-acento);
-        opacity: 0.9;
-        position: relative;
-        z-index: 1;
-        filter: drop-shadow(0 0 30px rgba(138, 171, 90, 0.5));
-        width: 240px;
-        height: 240px;
+        line-height: 1;
+        margin-bottom: 8px;
+    }
+    .tech-visual .stat .label {
+        font-size: 0.72rem;
+        letter-spacing: 3px;
+        color: var(--blanco);
+        text-transform: uppercase;
+        font-weight: 500;
     }
 
-    .split-text h2 { margin-bottom: 40px; }
-
+    .split-text h2 { margin-bottom: 35px; }
     .split-text p {
         font-size: 1.1rem;
         color: var(--gris-claro);
         font-weight: 300;
         margin-bottom: 20px;
-        line-height: 1.7;
+        line-height: 1.75;
+    }
+    .split-text p strong {
+        color: var(--blanco);
+        font-weight: 500;
     }
 
-    .comparison {
+    /* ===== EXPERIENCIA / LIFESTYLE ===== */
+    .lifestyle {
+        padding: 140px 60px;
         background: var(--negro);
-        padding: 120px 60px;
+    }
+
+    .lifestyle-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        max-width: 1400px;
+        margin: 60px auto 0;
+    }
+
+    .lifestyle-card {
+        aspect-ratio: 3/4;
+        position: relative;
+        overflow: hidden;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .lifestyle-card .bg {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        transition: transform 0.8s ease, filter 0.4s;
+    }
+
+    .lifestyle-card:hover .bg {
+        transform: scale(1.08);
+        filter: brightness(1.1);
+    }
+
+    .lifestyle-card::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(10,10,10,0.95) 0%, transparent 60%);
+    }
+
+    .lifestyle-card .info {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 30px;
+        z-index: 2;
+    }
+
+    .lifestyle-card .tag {
+        font-size: 0.7rem;
+        letter-spacing: 4px;
+        color: var(--verde-acento);
+        text-transform: uppercase;
+        margin-bottom: 12px;
+        font-weight: 700;
+    }
+
+    .lifestyle-card h3 {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.6rem;
+        font-weight: 700;
+        line-height: 1.2;
+        color: var(--blanco);
+    }
+
+    .ls-1 .bg { background-image: url('https://images.unsplash.com/photo-1505691938895-1758d7feb511?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'); }
+    .ls-2 .bg { background-image: url('https://images.unsplash.com/photo-1567016376408-0226e4d0c1ea?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'); }
+    .ls-3 .bg { background-image: url('https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'); }
+
+    /* ===== COMPARATIVA ===== */
+    .comparison {
+        background: var(--negro-suave);
+        padding: 140px 60px;
     }
 
     .comparison-header {
         text-align: center;
-        max-width: 800px;
+        max-width: 900px;
         margin: 0 auto 80px;
     }
 
@@ -403,54 +493,47 @@
     .comparison-row {
         display: grid;
         grid-template-columns: 2fr 1fr 1fr;
-        padding: 28px 30px;
+        padding: 30px 30px;
         border-bottom: 1px solid rgba(255,255,255,0.08);
         align-items: center;
         transition: background 0.3s;
     }
 
-    .comparison-row:hover { background: rgba(138, 171, 90, 0.04); }
+    .comparison-row:hover { background: rgba(197, 232, 122, 0.04); }
 
     .comparison-row.header {
-        background: transparent;
         border-bottom: 2px solid var(--verde-acento);
     }
-
     .comparison-row.header div {
-        font-size: 0.75rem;
-        letter-spacing: 3px;
+        font-size: 0.7rem;
+        letter-spacing: 4px;
         text-transform: uppercase;
         font-weight: 700;
         color: var(--gris-claro);
     }
-
     .comparison-row.header div:last-child { color: var(--verde-acento); }
 
-    .comparison-row .feature {
-        font-size: 1rem;
-        color: var(--blanco);
-        font-weight: 500;
+    .comparison-row .feature { font-size: 1rem; color: var(--blanco); font-weight: 500; }
+    .comparison-row .competition { font-size: 0.9rem; color: var(--gris); text-decoration: line-through; text-decoration-color: rgba(255, 95, 61, 0.6); }
+    .comparison-row .gecko { font-size: 0.95rem; color: var(--verde-acento); font-weight: 600; display: flex; align-items: center; gap: 10px; }
+    .comparison-row .gecko::before {
+        content: '';
+        width: 8px;
+        height: 8px;
+        background: var(--verde-acento);
+        border-radius: 50%;
+        box-shadow: 0 0 12px var(--verde-acento);
     }
 
-    .comparison-row .competition {
-        font-size: 0.9rem;
-        color: var(--gris);
-    }
-
-    .comparison-row .gecko {
-        font-size: 0.95rem;
-        color: var(--verde-acento);
-        font-weight: 600;
-    }
-
+    /* ===== ESPECIFICACIONES ===== */
     .specs {
-        background: var(--negro-suave);
-        padding: 120px 60px;
+        background: var(--negro);
+        padding: 140px 60px;
     }
 
     .specs-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 25px;
         max-width: 1400px;
         margin: 60px auto 0;
@@ -458,7 +541,7 @@
 
     .spec-card {
         background: var(--negro-card);
-        padding: 40px 30px;
+        padding: 45px 35px;
         border-radius: 4px;
         border: 1px solid rgba(255,255,255,0.05);
         transition: all 0.4s;
@@ -474,12 +557,11 @@
         background: var(--verde-acento);
         transition: width 0.4s;
     }
-
     .spec-card:hover {
         transform: translateY(-8px);
-        border-color: rgba(138, 171, 90, 0.3);
+        border-color: rgba(197, 232, 122, 0.3);
+        background: linear-gradient(135deg, var(--negro-card), #20211a);
     }
-
     .spec-card:hover::before { width: 100%; }
 
     .spec-card .num {
@@ -489,23 +571,25 @@
         color: var(--verde-acento);
         line-height: 1;
         margin-bottom: 15px;
+        opacity: 0.4;
     }
-
     .spec-card h3 {
-        font-size: 1.1rem;
+        font-size: 1.15rem;
         margin-bottom: 12px;
         font-weight: 600;
+        letter-spacing: 0.5px;
     }
-
     .spec-card p {
         font-size: 0.9rem;
         color: var(--gris-claro);
         font-weight: 300;
+        line-height: 1.6;
     }
 
+    /* ===== PALETA ===== */
     .palette-section {
-        background: var(--negro);
-        padding: 120px 60px;
+        background: var(--negro-suave);
+        padding: 140px 60px;
     }
 
     .palette-grid {
@@ -516,41 +600,35 @@
         margin: 60px auto 0;
         border-radius: 4px;
         overflow: hidden;
+        box-shadow: 0 30px 80px rgba(0,0,0,0.5);
     }
 
     .palette-block {
         aspect-ratio: 3/4;
-        padding: 30px;
+        padding: 35px;
         display: flex;
         flex-direction: column;
-        justify-content: flex-end;
-        transition: transform 0.4s;
+        justify-content: space-between;
+        transition: transform 0.5s ease, filter 0.4s;
         cursor: default;
+        position: relative;
     }
 
-    .palette-block:hover { transform: scale(1.05); z-index: 2; }
+    .palette-block:hover { transform: scale(1.04); z-index: 2; box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
 
-    .palette-block .hex {
-        font-size: 0.75rem;
-        letter-spacing: 2px;
-        opacity: 0.7;
-        margin-bottom: 5px;
-    }
+    .palette-block .top { font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase; opacity: 0.5; font-weight: 600; }
+    .palette-block .bottom .hex { font-size: 0.75rem; letter-spacing: 2px; opacity: 0.7; margin-bottom: 8px; }
+    .palette-block .bottom .name { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; }
 
-    .palette-block .name {
-        font-family: 'Playfair Display', serif;
-        font-size: 1.4rem;
-        font-weight: 700;
-    }
-
-    .pal-negro { background: #0a0a0a; color: var(--verde-acento); border: 1px solid rgba(255,255,255,0.1); }
+    .pal-negro { background: #0a0a0a; color: var(--verde-acento); border: 1px solid rgba(255,255,255,0.08); }
     .pal-musgo { background: #8aab5a; color: #0a0a0a; }
     .pal-pino { background: #2d4a2b; color: var(--verde-acento); }
     .pal-blanco { background: #f5f1e8; color: #0a0a0a; }
 
+    /* ===== PACKAGING ===== */
     .packaging {
-        background: var(--negro-suave);
-        padding: 120px 60px;
+        background: var(--negro);
+        padding: 140px 60px;
     }
 
     .packaging-grid {
@@ -564,46 +642,52 @@
 
     .package-visual {
         aspect-ratio: 4/5;
-        background:
-            linear-gradient(135deg, #3a2f1f 0%, #2a1f0f 100%);
+        background-image:
+            linear-gradient(135deg, rgba(10,10,10,0.4) 0%, rgba(10,10,10,0.7) 100%),
+            url('https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+        background-size: cover;
+        background-position: center;
+        background-color: #3a2f1f;
         border-radius: 4px;
         position: relative;
         display: flex;
         align-items: center;
         justify-content: center;
         overflow: hidden;
-        box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+        box-shadow: 0 30px 60px rgba(0,0,0,0.7);
     }
 
     .package-visual::before {
         content: '';
         position: absolute;
-        inset: 20px;
-        border: 1px solid rgba(138, 171, 90, 0.2);
+        inset: 25px;
+        border: 1px solid rgba(197, 232, 122, 0.25);
     }
 
     .package-label {
         text-align: center;
         z-index: 2;
+        background: rgba(10,10,10,0.7);
+        backdrop-filter: blur(10px);
+        padding: 35px 50px;
+        border-radius: 2px;
     }
 
     .package-label .brand-pkg {
         font-family: 'Playfair Display', serif;
-        font-size: 3rem;
+        font-size: 2.6rem;
         font-weight: 900;
         color: var(--verde-acento);
-        letter-spacing: 4px;
+        letter-spacing: 5px;
         margin-bottom: 10px;
     }
-
     .package-label .claim-pkg {
         font-size: 0.7rem;
         letter-spacing: 5px;
         color: var(--blanco);
-        opacity: 0.7;
+        opacity: 0.85;
         text-transform: uppercase;
     }
-
     .package-label .line-pkg {
         width: 50px;
         height: 1px;
@@ -611,84 +695,92 @@
         margin: 15px auto;
     }
 
-    .package-features {
-        list-style: none;
-        padding: 0;
-        margin-top: 30px;
-    }
-
+    .package-features { list-style: none; padding: 0; margin-top: 30px; }
     .package-features li {
-        padding: 18px 0;
+        padding: 20px 0;
         border-bottom: 1px solid rgba(255,255,255,0.08);
         display: flex;
         align-items: flex-start;
-        gap: 20px;
+        gap: 22px;
     }
-
     .package-features li::before {
         content: '';
         flex-shrink: 0;
-        width: 6px;
-        height: 6px;
+        width: 8px;
+        height: 8px;
         background: var(--verde-acento);
         border-radius: 50%;
         margin-top: 9px;
+        box-shadow: 0 0 12px var(--verde-acento);
     }
-
     .package-features strong {
         color: var(--blanco);
         display: block;
         margin-bottom: 4px;
         font-weight: 600;
+        font-size: 1rem;
     }
-
     .package-features span {
         color: var(--gris-claro);
         font-weight: 300;
         font-size: 0.95rem;
+        line-height: 1.6;
     }
 
+    /* ===== MANIFIESTO ===== */
     .manifesto {
         background:
-            radial-gradient(ellipse at center, rgba(138, 171, 90, 0.1) 0%, transparent 70%),
+            radial-gradient(ellipse at center, rgba(197, 232, 122, 0.12) 0%, transparent 70%),
             var(--negro);
         text-align: center;
-        padding: 160px 60px;
+        padding: 180px 60px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .manifesto::before {
+        content: '"';
+        position: absolute;
+        top: 60px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: 'Playfair Display', serif;
+        font-size: 18rem;
+        line-height: 1;
+        color: rgba(197, 232, 122, 0.07);
+        font-weight: 900;
     }
 
     .manifesto-quote {
         font-family: 'Playfair Display', serif;
-        font-size: clamp(2.5rem, 6vw, 5rem);
+        font-size: clamp(2.5rem, 6vw, 5.2rem);
         font-weight: 900;
         line-height: 1.1;
-        letter-spacing: -1px;
+        letter-spacing: -1.5px;
         max-width: 1100px;
         margin: 0 auto 60px;
+        position: relative;
     }
-
-    .manifesto-quote em {
-        font-style: italic;
-        color: var(--verde-acento);
-    }
+    .manifesto-quote em { font-style: italic; color: var(--verde-acento); }
 
     .manifesto-sub {
-        font-size: 1.1rem;
+        font-size: 1rem;
         color: var(--gris-claro);
-        font-weight: 300;
-        letter-spacing: 1px;
-        max-width: 600px;
-        margin: 0 auto;
+        font-weight: 400;
+        letter-spacing: 4px;
+        text-transform: uppercase;
     }
 
+    /* ===== CAMPAÑA ===== */
     .campaign {
         background: var(--negro-suave);
-        padding: 120px 60px;
+        padding: 140px 60px;
     }
 
     .campaign-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-        gap: 30px;
+        gap: 25px;
         max-width: 1400px;
         margin: 60px auto 0;
     }
@@ -698,97 +790,119 @@
         padding: 40px;
         border-radius: 4px;
         border-left: 3px solid var(--verde-acento);
-        transition: transform 0.4s;
+        transition: all 0.4s;
+        position: relative;
+        overflow: hidden;
     }
 
-    .campaign-card:hover { transform: translateY(-8px); }
+    .campaign-card::before {
+        content: '';
+        position: absolute;
+        top: 0; right: 0;
+        width: 80px;
+        height: 80px;
+        background: radial-gradient(circle, rgba(197, 232, 122, 0.1) 0%, transparent 70%);
+    }
+
+    .campaign-card:hover {
+        transform: translateY(-8px);
+        background: linear-gradient(135deg, var(--negro-card) 0%, #1f2018 100%);
+    }
 
     .campaign-card .platform-tag {
-        font-size: 0.7rem;
+        font-size: 0.68rem;
         letter-spacing: 3px;
         text-transform: uppercase;
         color: var(--verde-acento);
-        margin-bottom: 20px;
+        margin-bottom: 22px;
         font-weight: 700;
     }
 
     .campaign-card .copy-text {
-        font-size: 1.05rem;
+        font-family: 'Playfair Display', serif;
+        font-size: 1.3rem;
         color: var(--blanco);
-        font-weight: 500;
-        margin-bottom: 12px;
-        line-height: 1.5;
+        font-weight: 700;
+        margin-bottom: 15px;
+        line-height: 1.3;
     }
 
     .campaign-card .copy-desc {
         font-size: 0.9rem;
         color: var(--gris-claro);
         font-weight: 300;
-        line-height: 1.6;
+        line-height: 1.7;
     }
 
     .campaign-card .hashtags {
-        margin-top: 15px;
-        font-size: 0.85rem;
+        margin-top: 18px;
+        font-size: 0.82rem;
         color: var(--verde-acento);
         font-weight: 500;
+        letter-spacing: 0.5px;
     }
 
+    /* ===== WHY / JUSTIFICACIONES ===== */
     .why {
         background: var(--negro);
-        padding: 120px 60px;
+        padding: 140px 60px;
     }
 
     .why-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-        gap: 30px;
+        gap: 25px;
         max-width: 1400px;
         margin: 60px auto 0;
     }
 
     .why-card {
         background: linear-gradient(135deg, var(--negro-card) 0%, var(--negro-suave) 100%);
-        padding: 45px 35px;
+        padding: 50px 38px;
         border-radius: 4px;
         position: relative;
         overflow: hidden;
+        transition: transform 0.4s;
     }
+
+    .why-card:hover { transform: translateY(-6px); }
 
     .why-card .q-num {
         font-family: 'Playfair Display', serif;
-        font-size: 5rem;
+        font-size: 5.5rem;
         font-weight: 900;
-        color: rgba(138, 171, 90, 0.15);
+        color: rgba(197, 232, 122, 0.12);
         position: absolute;
-        top: 10px; right: 20px;
+        top: 15px; right: 25px;
         line-height: 1;
     }
-
     .why-card h3 {
         font-family: 'Playfair Display', serif;
         font-size: 1.4rem;
         font-weight: 700;
-        margin-bottom: 18px;
+        margin-bottom: 20px;
         color: var(--verde-acento);
         line-height: 1.3;
         position: relative;
         z-index: 1;
     }
-
     .why-card p {
         font-size: 0.95rem;
         color: var(--gris-claro);
         font-weight: 300;
-        line-height: 1.7;
+        line-height: 1.75;
         position: relative;
         z-index: 1;
     }
 
+    /* ===== CTA FINAL ===== */
     .final-cta {
         background:
-            linear-gradient(135deg, var(--verde-pino) 0%, #1a2918 100%);
-        padding: 160px 60px;
+            linear-gradient(135deg, rgba(45, 74, 43, 0.95) 0%, rgba(26, 41, 24, 0.95) 100%),
+            url('https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+        background-size: cover;
+        background-position: center;
+        padding: 180px 60px;
         text-align: center;
         position: relative;
         overflow: hidden;
@@ -799,83 +913,114 @@
         position: absolute;
         inset: 0;
         background-image:
-            linear-gradient(rgba(138, 171, 90, 0.05) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(138, 171, 90, 0.05) 1px, transparent 1px);
+            linear-gradient(rgba(197, 232, 122, 0.04) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(197, 232, 122, 0.04) 1px, transparent 1px);
         background-size: 80px 80px;
     }
 
     .final-cta h2 {
         position: relative;
         font-family: 'Playfair Display', serif;
-        font-size: clamp(3rem, 7vw, 6rem);
+        font-size: clamp(3rem, 7vw, 6.5rem);
         font-weight: 900;
         line-height: 1;
-        letter-spacing: -1.5px;
+        letter-spacing: -2px;
         margin-bottom: 30px;
     }
 
+    .final-cta h2 em { font-style: italic; color: var(--verde-acento); }
+
     .final-cta p {
         position: relative;
-        font-size: 1.2rem;
+        font-size: 1.15rem;
         color: var(--gris-claro);
         max-width: 600px;
-        margin: 0 auto 50px;
+        margin: 0 auto 55px;
         font-weight: 300;
+        line-height: 1.7;
     }
 
     .final-cta .btn-primary { position: relative; }
 
+    /* ===== FOOTER ===== */
     footer {
         background: var(--negro);
-        padding: 60px;
+        padding: 70px 60px 40px;
         border-top: 1px solid rgba(255,255,255,0.05);
     }
 
-    .footer-inner {
+    .footer-grid {
         max-width: 1400px;
         margin: 0 auto;
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 50px;
+        padding-bottom: 50px;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .footer-brand-block .footer-brand {
+        font-weight: 900;
+        font-size: 1.3rem;
+        letter-spacing: 4px;
+        margin-bottom: 15px;
+    }
+    .footer-brand-block .footer-brand span { color: var(--verde-acento); }
+    .footer-brand-block p {
+        color: var(--gris);
+        font-size: 0.85rem;
+        max-width: 280px;
+        line-height: 1.6;
+    }
+
+    .footer-col h4 {
+        font-size: 0.75rem;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--verde-acento);
+        margin-bottom: 20px;
+        font-weight: 700;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 10px; }
+    .footer-col a {
+        color: var(--gris-claro);
+        text-decoration: none;
+        font-size: 0.88rem;
+        transition: color 0.3s;
+    }
+    .footer-col a:hover { color: var(--verde-acento); }
+
+    .footer-bottom {
+        max-width: 1400px;
+        margin: 30px auto 0;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        flex-wrap: wrap;
-        gap: 20px;
-    }
-
-    .footer-brand {
-        font-weight: 900;
-        font-size: 1.2rem;
-        letter-spacing: 4px;
-    }
-
-    .footer-brand span { color: var(--verde-acento); }
-
-    .footer-meta {
         color: var(--gris);
-        font-size: 0.85rem;
+        font-size: 0.78rem;
         letter-spacing: 1px;
     }
 
+    /* ===== RESPONSIVE ===== */
     @media (max-width: 900px) {
         nav.main-nav { padding: 20px 25px; }
         nav.main-nav.scrolled { padding: 12px 25px; }
         .nav-links { display: none; }
-        section.full, .tech, .comparison, .specs, .packaging, .manifesto, .campaign, .why, .final-cta { padding: 80px 25px; }
+        .hero-content { padding: 0 30px; }
+        .hero-meta { left: 30px; right: 30px; bottom: 25px; }
+        .story, .tech, .lifestyle, .comparison, .specs, .palette-section, .packaging, .manifesto, .campaign, .why, .final-cta { padding: 90px 25px; }
         .split-grid, .packaging-grid { grid-template-columns: 1fr; gap: 50px; }
         .palette-grid { grid-template-columns: repeat(2, 1fr); }
-        .comparison-row { grid-template-columns: 1.5fr 1fr 1fr; padding: 20px 15px; font-size: 0.85rem; }
-        .gecko-icon { width: 140px; height: 140px; }
+        .lifestyle-grid { grid-template-columns: 1fr; }
+        .comparison-row { grid-template-columns: 1.5fr 1fr 1fr; padding: 22px 15px; font-size: 0.85rem; }
+        .footer-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
+        .footer-bottom { flex-direction: column; gap: 15px; }
     }
 
-    .reveal {
-        opacity: 0;
-        transform: translateY(40px);
-        transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-
-    .reveal.visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    /* ===== SCROLL REVEAL ===== */
+    .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.9s ease, transform 0.9s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
 </style>
 </head>
 <body>
@@ -885,55 +1030,95 @@
     <ul class="nav-links">
         <li><a href="#historia">Historia</a></li>
         <li><a href="#tecnologia">Tecnología</a></li>
+        <li><a href="#experiencia">Experiencia</a></li>
         <li><a href="#producto">Producto</a></li>
         <li><a href="#packaging">Packaging</a></li>
-        <li><a href="#manifiesto">Manifiesto</a></li>
     </ul>
-    <button class="nav-cta">Comprar</button>
+    <button class="nav-cta">Reservar</button>
 </nav>
 
+<!-- HERO -->
 <section class="hero">
-    <div class="hero-bg"></div>
+    <div class="hero-image"></div>
     <div class="hero-content">
         <div class="hero-eyebrow">Cuadro biomimético · Edición 01</div>
         <h1 class="hero-title">Decorá<br>sin dejar <em>huella</em>.</h1>
-        <p class="hero-subtitle">El primer cuadro autoadherente inspirado en el sistema de adhesión natural de los geckos. Sin clavos, sin marcas, sin compromisos.</p>
+        <p class="hero-subtitle">El primer cuadro autoadherente del mundo inspirado en el sistema de adhesión de los geckos. Sin clavos. Sin marcas. Sin compromisos.</p>
         <div class="hero-cta-group">
-            <a href="#producto" class="btn-primary">Descubrir</a>
+            <a href="#producto" class="btn-primary">Descubrir <span class="arrow">→</span></a>
             <a href="#tecnologia" class="btn-secondary">Ver tecnología</a>
         </div>
     </div>
-    <div class="scroll-indicator">Scroll</div>
-</section>
-
-<section class="story full" id="historia">
-    <div class="story-content reveal">
-        <div class="section-eyebrow">Capítulo 01 · Origen</div>
-        <h2 class="section-title">Inspirado en <em>la naturaleza</em>.<br>Diseñado para tu pared.</h2>
-        <p>Durante millones de años, los geckos perfeccionaron un sistema de adhesión que desafía la gravedad. Millones de filamentos microscópicos llamados <em>setae</em>, presentes en sus patas, les permiten escalar superficies imposibles sin pegamento, sin esfuerzo y sin dejar rastro.</p>
-        <p>Tomamos esa ingeniería natural y la trasladamos a un objeto cotidiano. El resultado es <strong>GeckoFrame</strong>: un cuadro que se adhiere con la misma elegancia con la que se retira.</p>
+    <div class="hero-meta">
+        <div>2026 · Colección 01</div>
+        <div class="scroll-cue">Scroll</div>
+        <div>AR · Buenos Aires</div>
     </div>
 </section>
 
+<!-- STORY -->
+<section class="story" id="historia">
+    <div class="story-content reveal">
+        <div class="section-eyebrow">Capítulo 01 · Origen</div>
+        <h2 class="section-title">Inspirado en <em>la naturaleza</em>.<br>Diseñado para tu pared.</h2>
+        <p>Durante 100 millones de años, los geckos perfeccionaron un sistema de adhesión que desafía la gravedad. Millones de filamentos microscópicos llamados <em>setae</em>, presentes en sus patas, les permiten escalar superficies imposibles sin pegamento, sin esfuerzo y sin dejar rastro.</p>
+        <p>Tomamos esa ingeniería natural y la trasladamos a un objeto cotidiano. El resultado es <strong style="color: var(--blanco);">GeckoFrame</strong>: un cuadro que se adhiere con la misma elegancia con la que se retira.</p>
+    </div>
+</section>
+
+<!-- TECNOLOGÍA -->
 <section class="tech" id="tecnologia">
     <div class="split-grid">
-        <div class="split-visual reveal">
-            <svg class="gecko-icon" viewBox="0 0 100 100" fill="currentColor">
-                <path d="M50 15c-3 0-6 2-7 5l-2 6c-3 1-6 3-7 6l-8-3c-3-1-6 1-7 4-1 3 1 6 4 7l8 3c0 4 1 8 3 11l-5 6c-2 2-2 6 0 8 2 2 6 2 8 0l5-6c3 1 7 1 10 0l5 6c2 2 6 2 8 0 2-2 2-6 0-8l-5-6c2-3 3-7 3-11l8-3c3-1 5-4 4-7-1-3-4-5-7-4l-8 3c-1-3-4-5-7-6l-2-6c-1-3-4-5-7-5zm0 22c4 0 7 3 7 7s-3 7-7 7-7-3-7-7 3-7 7-7zm-12 18c0 0 4 4 12 4s12-4 12-4l3 8c-3 3-9 6-15 6s-12-3-15-6l3-8z"/>
-            </svg>
+        <div class="tech-visual reveal">
+            <div class="stat">
+                <div class="number">6.5M</div>
+                <div class="label">Setae por pata · Adhesión sin pegamento</div>
+            </div>
         </div>
         <div class="split-text reveal">
             <div class="section-eyebrow">Tecnología · Biomimética</div>
             <h2 class="section-title">Setae:<br>la <em>ingeniería</em><br>de millones de años.</h2>
-            <p>Cada pata de un gecko contiene aproximadamente 6.5 millones de filamentos llamados <em>setae</em>. Estos generan fuerzas de Van der Waals que permiten adhesión instantánea sobre superficies lisas.</p>
-            <p>GeckoFrame replica esta arquitectura microscópica en su base autoadherente. El resultado: un cuadro que se sostiene firme, pero se retira limpio. Sin químicos. Sin residuos. Sin perforaciones.</p>
+            <p>Cada pata de un gecko contiene aproximadamente <strong>6.5 millones de filamentos</strong> llamados <em>setae</em>. Estos generan fuerzas de Van der Waals que permiten adhesión instantánea sobre superficies lisas.</p>
+            <p>GeckoFrame replica esta arquitectura microscópica en su base autoadherente. El resultado: un cuadro que se sostiene firme, pero se retira <strong>limpio</strong>. Sin químicos. Sin residuos. Sin perforaciones.</p>
         </div>
     </div>
 </section>
 
+<!-- LIFESTYLE / EXPERIENCIA -->
+<section class="lifestyle" id="experiencia">
+    <div style="text-align: center; max-width: 800px; margin: 0 auto;" class="reveal">
+        <div class="section-eyebrow">Experiencia · Espacios</div>
+        <h2 class="section-title">Diseñado para <em>cualquier</em> pared.<br>Pensado para la tuya.</h2>
+    </div>
+    <div class="lifestyle-grid">
+        <div class="lifestyle-card ls-1 reveal">
+            <div class="bg"></div>
+            <div class="info">
+                <div class="tag">Living moderno</div>
+                <h3>Cuando la pared respira, el cuadro se integra.</h3>
+            </div>
+        </div>
+        <div class="lifestyle-card ls-2 reveal">
+            <div class="bg"></div>
+            <div class="info">
+                <div class="tag">Espacios en transición</div>
+                <h3>Para los que se mudan. Para los que cambian de idea.</h3>
+            </div>
+        </div>
+        <div class="lifestyle-card ls-3 reveal">
+            <div class="bg"></div>
+            <div class="info">
+                <div class="tag">Gallery wall</div>
+                <h3>Componé. Descomponé. Volvé a empezar.</h3>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- COMPARATIVA -->
 <section class="comparison" id="producto">
     <div class="comparison-header reveal">
-        <div class="section-eyebrow">Comparativa · El estándar</div>
+        <div class="section-eyebrow">Comparativa · El nuevo estándar</div>
         <h2 class="section-title">No es <em>otro cuadro</em>.<br>Es una nueva categoría.</h2>
     </div>
     <div class="comparison-table reveal">
@@ -943,12 +1128,12 @@
             <div>GeckoFrame</div>
         </div>
         <div class="comparison-row">
-            <div class="feature">Herramientas</div>
+            <div class="feature">Herramientas necesarias</div>
             <div class="competition">Martillo, taladro</div>
             <div class="gecko">Ninguna</div>
         </div>
         <div class="comparison-row">
-            <div class="feature">Perforaciones</div>
+            <div class="feature">Perforaciones en pared</div>
             <div class="competition">Sí</div>
             <div class="gecko">Cero</div>
         </div>
@@ -968,16 +1153,22 @@
             <div class="gecko">Sin perder adherencia</div>
         </div>
         <div class="comparison-row">
-            <div class="feature">Daño en pared</div>
+            <div class="feature">Daño en la pared</div>
             <div class="competition">Permanente</div>
             <div class="gecko">Inexistente</div>
+        </div>
+        <div class="comparison-row">
+            <div class="feature">Tiempo de instalación</div>
+            <div class="competition">15-30 minutos</div>
+            <div class="gecko">30 segundos</div>
         </div>
     </div>
 </section>
 
+<!-- ESPECIFICACIONES -->
 <section class="specs">
     <div style="text-align: center; max-width: 800px; margin: 0 auto;" class="reveal">
-        <div class="section-eyebrow">Especificaciones</div>
+        <div class="section-eyebrow">Especificaciones · Edición 01</div>
         <h2 class="section-title">Cada detalle, <em>medido</em>.</h2>
     </div>
     <div class="specs-grid">
@@ -994,7 +1185,7 @@
         <div class="spec-card reveal">
             <div class="num">03</div>
             <h3>Base biomimética</h3>
-            <p>Tecnología autoadherente inspirada en geckos. Adherencia firme, retirada limpia.</p>
+            <p>Tecnología autoadherente inspirada en los geckos. Adherencia firme, retirada limpia.</p>
         </div>
         <div class="spec-card reveal">
             <div class="num">04</div>
@@ -1014,6 +1205,7 @@
     </div>
 </section>
 
+<!-- PALETA -->
 <section class="palette-section">
     <div style="text-align: center; max-width: 800px; margin: 0 auto;" class="reveal">
         <div class="section-eyebrow">Identidad cromática</div>
@@ -1021,24 +1213,37 @@
     </div>
     <div class="palette-grid reveal">
         <div class="palette-block pal-negro">
-            <div class="hex">#0A0A0A</div>
-            <div class="name">Negro carbón</div>
+            <div class="top">01</div>
+            <div class="bottom">
+                <div class="hex">#0A0A0A</div>
+                <div class="name">Negro carbón</div>
+            </div>
         </div>
         <div class="palette-block pal-musgo">
-            <div class="hex">#8AAB5A</div>
-            <div class="name">Verde musgo</div>
+            <div class="top">02</div>
+            <div class="bottom">
+                <div class="hex">#8AAB5A</div>
+                <div class="name">Verde musgo</div>
+            </div>
         </div>
         <div class="palette-block pal-pino">
-            <div class="hex">#2D4A2B</div>
-            <div class="name">Verde pino</div>
+            <div class="top">03</div>
+            <div class="bottom">
+                <div class="hex">#2D4A2B</div>
+                <div class="name">Verde pino</div>
+            </div>
         </div>
         <div class="palette-block pal-blanco">
-            <div class="hex">#F5F1E8</div>
-            <div class="name">Blanco natural</div>
+            <div class="top">04</div>
+            <div class="bottom">
+                <div class="hex">#F5F1E8</div>
+                <div class="name">Blanco natural</div>
+            </div>
         </div>
     </div>
 </section>
 
+<!-- PACKAGING -->
 <section class="packaging" id="packaging">
     <div style="text-align: center; max-width: 800px; margin: 0 auto;" class="reveal">
         <div class="section-eyebrow">Packaging · Cero residuos</div>
@@ -1089,14 +1294,15 @@
     </div>
 </section>
 
-<section class="manifesto" id="manifiesto">
+<!-- MANIFIESTO -->
+<section class="manifesto">
     <div class="reveal">
-        <div class="section-eyebrow" style="margin-bottom: 50px;">Manifiesto</div>
-        <p class="manifesto-quote">"No vendemos un cuadro.<br>Vendemos la libertad de <em>cambiar de idea</em><br>sin pedir permiso a la pared."</p>
-        <p class="manifesto-sub">— GeckoFrame</p>
+        <p class="manifesto-quote">No vendemos un cuadro.<br>Vendemos la libertad de <em>cambiar de idea</em><br>sin pedir permiso a la pared.</p>
+        <p class="manifesto-sub">— Manifiesto GeckoFrame</p>
     </div>
 </section>
 
+<!-- CAMPAÑA -->
 <section class="campaign">
     <div style="text-align: center; max-width: 800px; margin: 0 auto;" class="reveal">
         <div class="section-eyebrow">Campaña · Voz de marca</div>
@@ -1107,10 +1313,10 @@
             <div class="platform-tag">Instagram · Lanzamiento</div>
             <p class="copy-text">"Tu pared no debería pagar el precio de tu creatividad."</p>
             <p class="copy-desc">Llegó GeckoFrame: el cuadro que se adhiere como un gecko y se va sin dejar rastro. Cambiá de lugar, cambiá de idea, cambiá de casa.</p>
-            <p class="hashtags">#GeckoFrame #SinHuella</p>
+            <p class="hashtags">#GeckoFrame · #SinHuella · #BiomiméticaArgentina</p>
         </div>
         <div class="campaign-card reveal">
-            <div class="platform-tag">TikTok · Hook</div>
+            <div class="platform-tag">TikTok · Hook viral</div>
             <p class="copy-text">"Le saqué el cuadro a la pared después de 6 meses. Mirá cómo quedó."</p>
             <p class="copy-desc">Cero marcas. Cero residuos. Cero excusas para no decorar.</p>
         </div>
@@ -1127,6 +1333,7 @@
     </div>
 </section>
 
+<!-- WHY -->
 <section class="why">
     <div style="text-align: center; max-width: 800px; margin: 0 auto;" class="reveal">
         <div class="section-eyebrow">Decisiones · Justificadas</div>
@@ -1166,27 +1373,58 @@
     </div>
 </section>
 
+<!-- CTA FINAL -->
 <section class="final-cta">
     <h2>¿Lista para <em>decorar</em><br>sin compromisos?</h2>
     <p>Unite a la nueva generación de personas que decoran con libertad. Sin marcas. Sin clavos. Sin arrepentimientos.</p>
-    <a href="#" class="btn-primary">Reservar mi GeckoFrame</a>
+    <a href="#" class="btn-primary">Reservar mi GeckoFrame <span class="arrow">→</span></a>
 </section>
 
+<!-- FOOTER -->
 <footer>
-    <div class="footer-inner">
-        <div class="footer-brand">GECKO<span>FRAME</span></div>
-        <div class="footer-meta">© 2026 · Decorá sin dejar huella · Edición 01</div>
+    <div class="footer-grid">
+        <div class="footer-brand-block">
+            <div class="footer-brand">GECKO<span>FRAME</span></div>
+            <p>Cuadros autoadherentes biomiméticos. Diseñados en Argentina. Hechos para moverse con vos.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Producto</h4>
+            <ul>
+                <li><a href="#tecnologia">Tecnología</a></li>
+                <li><a href="#producto">Comparativa</a></li>
+                <li><a href="#packaging">Packaging</a></li>
+                <li><a href="#">Garantía</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Marca</h4>
+            <ul>
+                <li><a href="#historia">Historia</a></li>
+                <li><a href="#">Manifiesto</a></li>
+                <li><a href="#">Prensa</a></li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Seguinos</h4>
+            <ul>
+                <li><a href="#">Instagram</a></li>
+                <li><a href="#">TikTok</a></li>
+                <li><a href="#">Newsletter</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div>© 2026 GeckoFrame · Todos los derechos reservados</div>
+        <div>Decorá sin dejar huella · Edición 01</div>
     </div>
 </footer>
 
 <script>
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 60) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
+        if (window.scrollY > 60) navbar.classList.add('scrolled');
+        else navbar.classList.remove('scrolled');
     });
 
     const reveals = document.querySelectorAll('.reveal');
@@ -1197,7 +1435,7 @@
                 observer.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.15 });
+    }, { threshold: 0.12 });
     reveals.forEach(el => observer.observe(el));
 </script>
 
